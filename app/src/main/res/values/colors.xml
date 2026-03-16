@@ -1,5 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+    <!-- Primary Brand Colors -->
+    <color name="primary_blue">#2F80ED</color>
+    <color name="primary_blue_dark">#1C5ED6</color>
+    <color name="primary_blue_light">#5AA5FF</color>
+
+    <!-- Secondary Health Colors -->
+    <color name="health_green">#27AE60</color>
+    <color name="health_green_light">#6FCF97</color>
+
+    <!-- AI Accent -->
+    <color name="ai_cyan">#00C2FF</color>
+
+    <!-- Background Colors -->
+    <color name="background_main">#F7FAFC</color>
+    <color name="background_card">#FFFFFF</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#1F2937</color>
+    <color name="text_secondary">#6B7280</color>
+    <color name="text_muted">#9CA3AF</color>
+    <color name="text_white">#FFFFFF</color>
+
+    <!-- Warning & Alerts -->
+    <color name="warning_orange">#F2994A</color>
+    <color name="error_red">#EB5757</color>
+
+    <!-- Emergency -->
+    <color name="emergency_red">#D32F2F</color>
+
+    <!-- Divider -->
+    <color name="divider">#E5E7EB</color>
+
+    <!-- Shadows / Transparent -->
+    <color name="shadow_light">#0D000000</color>
+
+    <!-- Gradient Support -->
+    <color name="gradient_start">#2F80ED</color>
+    <color name="gradient_end">#00C2FF</color>
+
 </resources>

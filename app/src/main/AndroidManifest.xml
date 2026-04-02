@@ -12,9 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HAAi">
         <activity
-            android:name=".HealthTipsActivity"
-            android:exported="false" />
-        <activity
             android:name=".ResultActivity"
             android:exported="false" />
         <activity

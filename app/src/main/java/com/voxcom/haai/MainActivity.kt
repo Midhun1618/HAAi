@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
@@ -18,8 +19,8 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val nextpage = findViewById<Button>(R.id.nextpage)
-        nextpage.setOnClickListener {
+        val SymptomsBtn = findViewById<CardView>(R.id.card1)
+        SymptomsBtn.setOnClickListener {
             startActivity(Intent(this, SymptomsActivity::class.java))
         }
     }

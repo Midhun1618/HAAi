@@ -25,6 +25,7 @@
 
     <!-- Warning & Alerts -->
     <color name="warning_orange">#F2994A</color>
+    <color name="yellow25">#3AFFC524</color>
     <color name="error_red">#EB5757</color>
 
     <!-- Emergency -->

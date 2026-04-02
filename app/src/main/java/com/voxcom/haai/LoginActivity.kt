@@ -3,24 +3,56 @@ package com.voxcom.haai
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var googleBtn: TextView
+    private lateinit var loginDetailLL: LinearLayout
+    private lateinit var emailTv: TextView
+    private lateinit var nameEt: EditText
+    private lateinit var dobEt: EditText
+    private lateinit var loginBtn: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_login)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+
+        googleBtn = findViewById(R.id.loginWgooleBtn)
+        loginDetailLL = findViewById(R.id.loginDetailLL)
+        emailTv = findViewById(R.id.emailTv)
+        nameEt = findViewById(R.id.nameEt)
+        dobEt = findViewById(R.id.additionalInput)
+        loginBtn = findViewById(R.id.nextpage)
+
+        emailTv.text = "user@gmail.com"
+
+
+        googleBtn.setOnClickListener {
+            googleBtn.visibility = TextView.GONE
+            loginDetailLL.visibility = LinearLayout.VISIBLE
+
+            Toast.makeText(this, "Google Login Success ✅", Toast.LENGTH_SHORT).show()
         }
-        val nextpage = findViewById<Button>(R.id.nextpage)
-        nextpage.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+
+        loginBtn.setOnClickListener {
+            val name = nameEt.text.toString()
+            val dob = dobEt.text.toString()
+
+            if (name.isEmpty() || dob.isEmpty()) {
+                Toast.makeText(this, "Fill all details bro 😅", Toast.LENGTH_SHORT).show()
+            } else {
+                startActivity(Intent(this, OnboardingActivity::class.java))
+                finish()
+            }
         }
     }
 }

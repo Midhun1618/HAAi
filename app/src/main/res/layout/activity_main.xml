@@ -12,10 +12,10 @@
         android:id="@+id/greetingTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hi, Username"
+        android:text="Hi, Username👋"
         android:layout_marginHorizontal="18dp"
         android:textSize="18sp"
-        android:layout_marginTop="18dp"/>
+        android:layout_marginTop="40dp"/>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,11 +24,11 @@
         android:elevation="16dp"
         app:cardCornerRadius="16dp">
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <ImageView
-                android:src="@drawable/ic_android_black_24dp"
+                android:src="@drawable/ic_account"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_margin="8dp"/>
@@ -48,10 +48,19 @@
                     android:id="@+id/ageweightTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Age : 28    Weight : 40kg"
+                    android:text="Age : 28 "
                     android:layout_margin="3dp"
                     android:textSize="12sp"/>
             </LinearLayout>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_edit"
+                android:layout_gravity="end"/>
         </LinearLayout>
 
 
@@ -86,7 +95,7 @@
                     android:orientation="vertical"
                     android:gravity="center">
                     <ImageView
-                        android:src="@drawable/ic_android_black_24dp"
+                        android:src="@drawable/ic_diagnosis"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="8dp"/>
@@ -112,7 +121,7 @@
                     android:orientation="vertical"
                     android:gravity="center">
                     <ImageView
-                        android:src="@drawable/ic_android_black_24dp"
+                        android:src="@drawable/ic_healthtip"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="8dp"/>
@@ -138,7 +147,7 @@
                     android:orientation="vertical"
                     android:gravity="center">
                     <ImageView
-                        android:src="@drawable/ic_android_black_24dp"
+                        android:src="@drawable/ic_demography"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="8dp"/>
@@ -164,7 +173,7 @@
                     android:orientation="vertical"
                     android:gravity="center">
                     <ImageView
-                        android:src="@drawable/ic_android_black_24dp"
+                        android:src="@drawable/ic_emergency"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_margin="8dp"/>

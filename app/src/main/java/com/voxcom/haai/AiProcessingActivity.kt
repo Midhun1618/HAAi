@@ -49,7 +49,7 @@ class AiProcessingActivity : AppCompatActivity() {
         """
 
         val request = Request.Builder()
-            .url("https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyDnyAr37mBGS586ny4nsQC8j7rcQumxZCs")
+            .url("https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=")
             .post(json.toRequestBody("application/json".toMediaType()))
             .build()
 
@@ -86,6 +86,7 @@ class AiProcessingActivity : AppCompatActivity() {
                     }
 
                 } catch (e: Exception) {
+                    println("Error : ${e.message}")
                     runOnUiThread {
                         loaderImg.clearAnimation()
 

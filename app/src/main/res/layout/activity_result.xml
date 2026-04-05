@@ -28,6 +28,7 @@
         android:textStyle="bold"
         android:text="HEALTH AWARENESS RESULT"/>
     <TextView
+        android:id="@+id/dateTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -53,6 +54,7 @@
             android:textSize="19sp"
             android:layout_marginStart="16dp"/>
         <TextView
+            android:id="@+id/diseaseTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Fever"
@@ -62,6 +64,7 @@
 
     </LinearLayout>
     <TextView
+        android:id="@+id/confidenceTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Confidence : 78%"

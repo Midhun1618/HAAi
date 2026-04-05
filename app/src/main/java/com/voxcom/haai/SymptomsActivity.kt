@@ -2,29 +2,18 @@ package com.voxcom.haai
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
+import android.widget.*
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class SymptomsActivity : AppCompatActivity() {
-    private lateinit var sym01 : Button
-    private lateinit var sym02 : Button
-    private lateinit var sym03 : Button
-    private lateinit var sym04 : Button
-    private lateinit var sym05 : Button
-    private lateinit var sym06 : Button
-    private lateinit var sym07 : Button
-    private lateinit var sym08 : Button
-    private lateinit var sym09 : Button
-    private lateinit var sym10 : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_symptoms)
+
         val buttons = listOf(
             findViewById<Button>(R.id.symp1),
             findViewById<Button>(R.id.symp2),
@@ -37,8 +26,15 @@ class SymptomsActivity : AppCompatActivity() {
             findViewById<Button>(R.id.symp9),
             findViewById<Button>(R.id.symp10)
         )
+
         val states = MutableList(10) { false }
 
+        // Inputs
+        val additionalInput = findViewById<EditText>(R.id.additionalInput)
+        val durationEt = findViewById<EditText>(R.id.durationEt)
+        val ageEt = findViewById<EditText>(R.id.ageEt)
+
+        // Toggle buttons
         buttons.forEachIndexed { index, button ->
             button.setOnClickListener {
                 states[index] = !states[index]
@@ -52,9 +48,63 @@ class SymptomsActivity : AppCompatActivity() {
         }
 
         val checkNow = findViewById<Button>(R.id.checkNow)
+
         checkNow.setOnClickListener {
-            startActivity(Intent(this, AiProcessingActivity::class.java))
-            finish()
+
+            val selectedSymptoms = mutableListOf<String>()
+
+            buttons.forEachIndexed { index, button ->
+                if (states[index]) {
+                    selectedSymptoms.add(button.text.toString())
+                }
+            }
+
+            // 🚨 Validation
+            if (selectedSymptoms.isEmpty()) {
+                Toast.makeText(this, "Select at least one symptom", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val age = ageEt.text.toString()
+            val duration = durationEt.text.toString()
+            val extraInfo = additionalInput.text.toString()
+
+            if (age.isEmpty()) {
+                Toast.makeText(this, "Enter age", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (duration.isEmpty()) {
+                Toast.makeText(this, "Enter duration", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val prompt = """
+                Act as a basic medical assistant.
+
+                Patient Age: $age years
+                Symptoms Duration: $duration days
+
+                Symptoms: ${selectedSymptoms.joinToString(", ")}
+                Additional Info: $extraInfo
+
+                Analyze the condition and return ONLY JSON:
+
+                {
+                  "disease": "",
+                  "confidence": "",
+                  "causes": [],
+                  "actions": []
+                }
+
+                Keep it realistic and safe.
+                Return ONLY valid JSON.
+                Do not include markdown, explanation, or backticks.
+            """.trimIndent()
+
+            val intent = Intent(this, AiProcessingActivity::class.java)
+            intent.putExtra("PROMPT", prompt)
+            startActivity(intent)
         }
     }
 }

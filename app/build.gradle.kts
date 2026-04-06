@@ -50,6 +50,8 @@ dependencies {
     implementation("com.airbnb.android:lottie:6.4.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
 
+    implementation("com.google.ai.client.generativeai:generativeai:0.8.0")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

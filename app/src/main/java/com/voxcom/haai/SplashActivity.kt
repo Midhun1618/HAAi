@@ -20,7 +20,7 @@ class SplashActivity : AppCompatActivity() {
         }
         val nextpage = findViewById<Button>(R.id.nextpage)
         nextpage.setOnClickListener {
-            startActivity(Intent(this, OnboardingActivity::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 }

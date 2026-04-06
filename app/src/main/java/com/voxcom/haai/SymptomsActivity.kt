@@ -29,12 +29,10 @@ class SymptomsActivity : AppCompatActivity() {
 
         val states = MutableList(10) { false }
 
-        // Inputs
         val additionalInput = findViewById<EditText>(R.id.additionalInput)
         val durationEt = findViewById<EditText>(R.id.durationEt)
         val ageEt = findViewById<EditText>(R.id.ageEt)
 
-        // Toggle buttons
         buttons.forEachIndexed { index, button ->
             button.setOnClickListener {
                 states[index] = !states[index]
@@ -59,7 +57,6 @@ class SymptomsActivity : AppCompatActivity() {
                 }
             }
 
-            // 🚨 Validation
             if (selectedSymptoms.isEmpty()) {
                 Toast.makeText(this, "Select at least one symptom", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -88,7 +85,7 @@ class SymptomsActivity : AppCompatActivity() {
                 Symptoms: ${selectedSymptoms.joinToString(", ")}
                 Additional Info: $extraInfo
 
-                Analyze the condition and return ONLY JSON:
+                Analyze and return ONLY JSON:
 
                 {
                   "disease": "",
@@ -97,9 +94,7 @@ class SymptomsActivity : AppCompatActivity() {
                   "actions": []
                 }
 
-                Keep it realistic and safe.
-                Return ONLY valid JSON.
-                Do not include markdown, explanation, or backticks.
+                No markdown. No explanation.
             """.trimIndent()
 
             val intent = Intent(this, AiProcessingActivity::class.java)

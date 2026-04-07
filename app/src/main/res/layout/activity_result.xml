@@ -82,7 +82,8 @@
         android:layout_marginTop="16dp"
         android:textSize="18sp"
         android:text="Possible Cause :"/>
-    <ListView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="16dp"
@@ -94,9 +95,10 @@
         android:layout_marginTop="16dp"
         android:textSize="18sp"
         android:text="Suggested Actions :"/>
-    <ListView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:id="@+id/actionsLv"/>
         </LinearLayout>

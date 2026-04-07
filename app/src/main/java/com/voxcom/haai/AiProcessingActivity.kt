@@ -19,6 +19,7 @@ import okhttp3.Response
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 class AiProcessingActivity : AppCompatActivity() {
 
@@ -48,7 +49,12 @@ class AiProcessingActivity : AppCompatActivity() {
 
     private fun callAI(prompt: String) {
 
-        val client = OkHttpClient()
+        val client = OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .retryOnConnectionFailure(true)
+            .build()
 
         val jsonObject = JSONObject()
 
@@ -67,7 +73,7 @@ class AiProcessingActivity : AppCompatActivity() {
         jsonObject.put("contents", contentsArray)
 
         val request = Request.Builder()
-            .url("https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent")
+            .url("https://generativelanguage.googleapis.com/v1beta/models/${Info.model}:generateContent")
             .addHeader("Content-Type", "application/json")
             .addHeader("X-goog-api-key", Info.api) // ✅ IMPORTANT
             .post(jsonObject.toString().toRequestBody("application/json".toMediaType()))

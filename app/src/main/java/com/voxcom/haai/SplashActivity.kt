@@ -22,5 +22,9 @@ class SplashActivity : AppCompatActivity() {
         nextpage.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }
+        val next = findViewById<Button>(R.id.next)
+        next.setOnClickListener {
+            startActivity(Intent(this, SymptomsActivity::class.java))
+        }
     }
 }

@@ -20,11 +20,14 @@ class ResultActivity : AppCompatActivity() {
         val diseaseTv = findViewById<TextView>(R.id.diseaseTv)
         val confidenceTv = findViewById<TextView>(R.id.confidenceTv)
         val dateTv = findViewById<TextView>(R.id.dateTv)
-        val causeLv = findViewById<ListView>(R.id.causeLv)
-        val actionsLv = findViewById<ListView>(R.id.actionsLv)
+
+        val causeContainer = findViewById<LinearLayout>(R.id.causeLv)
+        val actionContainer = findViewById<LinearLayout>(R.id.actionsLv)
+
         val checkAgainBtn = findViewById<Button>(R.id.checkAgainBtn)
         val saveReportBtn = findViewById<Button>(R.id.saveReportBtn)
 
+        // Date
         val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         dateTv.text = sdf.format(Date())
 
@@ -44,21 +47,31 @@ class ResultActivity : AppCompatActivity() {
             val causesArray = jsonObject.getJSONArray("causes")
             val actionsArray = jsonObject.getJSONArray("actions")
 
+            // Set main text
             diseaseTv.text = disease
             confidenceTv.text = "Confidence: $confidence"
 
-            val causesList = mutableListOf<String>()
+            // 🔥 CLEAR OLD VIEWS (important if reused)
+            causeContainer.removeAllViews()
+            actionContainer.removeAllViews()
+
+            // 🔥 ADD CAUSES
             for (i in 0 until causesArray.length()) {
-                causesList.add(causesArray.getString(i))
+                val tv = TextView(this)
+                tv.text = "• " + causesArray.getString(i)
+                tv.textSize = 18f
+                tv.setPadding(8, 8, 8, 8)
+                causeContainer.addView(tv)
             }
 
-            val actionsList = mutableListOf<String>()
+            // 🔥 ADD ACTIONS
             for (i in 0 until actionsArray.length()) {
-                actionsList.add(actionsArray.getString(i))
+                val tv = TextView(this)
+                tv.text = "• " + actionsArray.getString(i)
+                tv.textSize = 18f
+                tv.setPadding(8, 8, 8, 8)
+                actionContainer.addView(tv)
             }
-
-            causeLv.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, causesList)
-            actionsLv.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, actionsList)
 
         } catch (e: Exception) {
             Toast.makeText(this, "Error parsing result", Toast.LENGTH_SHORT).show()

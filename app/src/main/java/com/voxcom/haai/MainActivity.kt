@@ -21,11 +21,15 @@ class MainActivity : AppCompatActivity() {
         }
         val SymptomsBtn = findViewById<CardView>(R.id.card1)
         val TipsBtn = findViewById<CardView>(R.id.card2)
+        val EmergencyBtn = findViewById<CardView>(R.id.card4)
         SymptomsBtn.setOnClickListener {
             startActivity(Intent(this, SymptomsActivity::class.java))
         }
         TipsBtn.setOnClickListener {
             startActivity(Intent(this, HealthTipsActivity::class.java))
+        }
+        EmergencyBtn.setOnClickListener {
+            startActivity(Intent(this, EmergencyActivity::class.java))
         }
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">HealthTipsApp</string>
+    <string name="map_api">ads</string>
     <string-array name="health_tips">
         <!-- Nutrition -->
         <item>Eat at least five servings of vegetables and fruits every day to get essential vitamins and minerals.</item>

@@ -2,10 +2,12 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:padding="12dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
 
     <!-- Emergency Text -->
     <TextView
@@ -27,46 +29,68 @@
 
 
     <!-- Map (small section) -->
+    <!-- Map (WebView section instead of fragment) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnHospital"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:backgroundTint="@color/primary_blue_dark"
+            android:text="Check Hospitals"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent" /><Button
+        android:id="@+id/btnCall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/emergency_red"
+        android:text="Call Emergency (112)"/>
+
+    </LinearLayout>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="350dp"
+        android:elevation="8dp"
         map:cardCornerRadius="15dp">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
-            <fragment
-                android:id="@+id/mapFragment"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
+            <!-- 🌐 WebView as Map -->
+            <WebView
+                android:id="@+id/mapWebView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <!-- Buttons -->
-            <Button
-                android:id="@+id/btnHospital"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Check Hospitals"
-                android:layout_margin="8dp"
-                android:backgroundTint="@color/primary_blue_dark"
-                map:layout_constraintBottom_toBottomOf="parent"
-                map:layout_constraintEnd_toEndOf="parent"
-                map:layout_constraintStart_toStartOf="parent" />
+            <!-- Placeholder (shown until location loads) -->
+            <ImageView
+                android:id="@+id/map_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/map_placeholder" />
+
+            <!-- Button -->
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 
-    <Button
-        android:id="@+id/btnCall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/emergency_red"
-        android:text="Call Emergency (112)"/>
+
     <Button
         android:id="@+id/btnGuidelines"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@color/primary_blue"
         android:text="View Guidelines"/>
     <WebView

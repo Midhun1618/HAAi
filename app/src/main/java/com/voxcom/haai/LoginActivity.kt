@@ -33,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginDetailLL: LinearLayout
     private lateinit var emailTv: TextView
     private lateinit var nameEt: EditText
-    private lateinit var dobEt: EditText
+    private lateinit var dobEt: TextView
     private lateinit var loginBtn: Button
 
     private var selectedGender = ""
@@ -48,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
         loginDetailLL = findViewById(R.id.loginDetailLL)
         emailTv = findViewById(R.id.emailTv)
         nameEt = findViewById(R.id.nameEt)
-        dobEt = findViewById(R.id.additionalInput)
+        dobEt = findViewById(R.id.dobInput)
         loginBtn = findViewById(R.id.nextpage)
 
         val maleBtn = findViewById<TextView>(R.id.maleBtn)

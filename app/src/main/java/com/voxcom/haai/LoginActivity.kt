@@ -62,11 +62,25 @@ class LoginActivity : AppCompatActivity() {
         // 🎯 Gender selection
         maleBtn.setOnClickListener {
             selectedGender = "Male"
+
+            maleBtn.setTextColor(getColor(R.color.text_white))
+            maleBtn.setBackgroundResource(R.drawable.blue_bubble)
+
+            femaleBtn.setTextColor(getColor(R.color.text_secondary))
+            femaleBtn.setBackgroundResource(R.drawable.curver_outliner)
+
             Toast.makeText(this, "Male selected", Toast.LENGTH_SHORT).show()
         }
 
         femaleBtn.setOnClickListener {
             selectedGender = "Female"
+
+            femaleBtn.setTextColor(getColor(R.color.text_white))
+            femaleBtn.setBackgroundResource(R.drawable.blue_bubble)
+
+            maleBtn.setTextColor(getColor(R.color.text_secondary))
+            maleBtn.setBackgroundResource(R.drawable.curver_outliner)
+
             Toast.makeText(this, "Female selected", Toast.LENGTH_SHORT).show()
         }
 

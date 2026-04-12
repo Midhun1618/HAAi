@@ -44,10 +44,8 @@ class ReportsActivity : AppCompatActivity() {
             val confidenceTv = item.findViewById<TextView>(R.id.itemConfidence)
             val reportImage = item.findViewById<ImageView>(R.id.reportImage)
 
-            // 🔹 Expand layout
             val expandLayout = item.findViewById<LinearLayout>(R.id.expandLayout)
 
-            // 🔹 Detail views
             val ageTv = item.findViewById<TextView>(R.id.ageTv)
             val durationTv = item.findViewById<TextView>(R.id.durationTv)
 
@@ -55,7 +53,6 @@ class ReportsActivity : AppCompatActivity() {
             val causeLv = item.findViewById<LinearLayout>(R.id.causeLv)
             val actionsLv = item.findViewById<LinearLayout>(R.id.actionsLv)
 
-            // 🔥 SET BASIC DATA (safe)
             diseaseTv.text = report.optString("disease", "Unknown")
             dateTv.text = report.optString("date", "--")
             confidenceTv.text = "Confidence: ${report.optString("confidence", "--")}"
@@ -63,12 +60,10 @@ class ReportsActivity : AppCompatActivity() {
             ageTv.text = "Age: ${report.optString("age", "--")}"
             durationTv.text = "Duration: ${report.optString("duration", "--")} days"
 
-            // 🔥 CLEAR OLD VIEWS
             symptomsLv.removeAllViews()
             causeLv.removeAllViews()
             actionsLv.removeAllViews()
 
-            // 🔥 SAFE ARRAY FETCH FUNCTION
             fun getSafeArray(obj: JSONObject, key: String): JSONArray {
                 return try {
                     val data = obj.get(key)
@@ -82,7 +77,6 @@ class ReportsActivity : AppCompatActivity() {
                 }
             }
 
-            // 🔹 Symptoms
             val symArr = getSafeArray(report, "symptoms")
             for (j in 0 until symArr.length()) {
                 val tv = TextView(this)
@@ -108,8 +102,6 @@ class ReportsActivity : AppCompatActivity() {
                 tv.setPadding(4, 4, 4, 4)
                 actionsLv.addView(tv)
             }
-
-            // 🔥 ACCORDION CLICK LOGIC (clean + stable)
             item.setOnClickListener {
 
                 if (expandLayout == lastExpanded) {
@@ -127,13 +119,11 @@ class ReportsActivity : AppCompatActivity() {
                     return@setOnClickListener
                 }
 
-                // close previous
                 lastExpanded?.let {
                     collapse(it)
                 }
                 lastImage?.visibility = View.VISIBLE
 
-                // open new
                 expand(expandLayout)
                 reportImage.visibility = View.GONE
 

@@ -1,5 +1,6 @@
 package com.voxcom.haai
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.health.connect.datatypes.units.Temperature
 import android.os.Bundle
@@ -45,10 +46,14 @@ class MainActivity : AppCompatActivity() {
         // Load texts from strings.xml
         texts = resources.getStringArray(R.array.health_tips)
 
-        // Show one random text initially
+
         showRandomText()
 
         button.setOnClickListener {
+            val rotate = ObjectAnimator.ofFloat(button, "rotation", 0f, 360f)
+            rotate.duration = 400
+            rotate.start()
+
             showRandomText()
         }
 
@@ -107,7 +112,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private fun showRandomText() {
+
         val randomIndex = Random.nextInt(texts.size)
-        textView.text = texts[randomIndex]
+
+        textView.animate()
+            .alpha(0f)
+            .translationY(20f)
+            .setDuration(150)
+            .withEndAction {
+                textView.text = texts[randomIndex]
+
+                textView.translationY = -20f
+
+                textView.animate()
+                    .alpha(1f)
+                    .translationY(0f)
+                    .setDuration(300)
+                    .start()
+            }
+            .start()
     }
 }

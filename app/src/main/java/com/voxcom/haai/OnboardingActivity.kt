@@ -63,13 +63,20 @@ class OnboardingActivity : AppCompatActivity() {
             )
         )
 
-        viewPager.adapter = OnboardingAdapter(list)
+        val adapter = OnboardingAdapter(list)
+        viewPager.adapter = adapter
 
         nextBtn.setOnClickListener {
             if (viewPager.currentItem < list.size - 1) {
                 viewPager.currentItem += 1
             } else {
-                startActivity(Intent(this, LoginActivity::class.java))
+
+                if (!adapter.isDisclaimerAccepted) {
+                    Toast.makeText(this, "Please accept the disclaimer to continue", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
+                startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }
         }

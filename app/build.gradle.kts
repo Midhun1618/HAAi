@@ -1,13 +1,12 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
     namespace = "com.voxcom.haai"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.voxcom.haai"
@@ -39,24 +38,36 @@ android {
 }
 
 dependencies {
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    implementation(libs.common)
+    implementation(libs.lifecycle.runtime.ktx)
 
-    implementation("com.squareup.okhttp3:okhttp:4.12.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
-    implementation("com.airbnb.android:lottie:6.4.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
 
-    implementation("com.google.ai.client.generativeai:generativeai:0.8.0")
+    implementation(libs.lottie)
+    implementation(libs.generativeai)
 
-    implementation("com.google.android.gms:play-services-maps:18.2.0")
-    implementation("com.google.android.gms:play-services-location:21.0.1")
+    implementation(libs.play.services.maps)
+    implementation(libs.play.services.location)
+
+    // 🔥 Firebase BOM
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.database)
+
+    // Google Sign-In
+    implementation(libs.credentials)
+    implementation(libs.googleid)
+
+    implementation(libs.gson)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.lifecycle.runtime.ktx)
 }

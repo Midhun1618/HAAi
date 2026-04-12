@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.widget.*
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class SymptomsActivity : AppCompatActivity() {
 
@@ -27,11 +30,21 @@ class SymptomsActivity : AppCompatActivity() {
             findViewById<Button>(R.id.symp10)
         )
 
+
         val states = MutableList(10) { false }
 
         val additionalInput = findViewById<EditText>(R.id.additionalInput)
         val durationEt = findViewById<EditText>(R.id.durationEt)
         val ageEt = findViewById<EditText>(R.id.ageEt)
+
+        val user = UserManager.getUser(this)
+
+        user?.let {
+            val age = getAgeFromDob(it.dob)
+            ageEt.setText(age.toString())
+        } ?: run {
+            Toast.makeText(this, "User data not found", Toast.LENGTH_SHORT).show()
+        }
 
         buttons.forEachIndexed { index, button ->
             button.setOnClickListener {
@@ -65,6 +78,7 @@ class SymptomsActivity : AppCompatActivity() {
             val age = ageEt.text.toString()
             val duration = durationEt.text.toString()
             val extraInfo = additionalInput.text.toString()
+            val gender = user?.gender
 
             if (age.isEmpty()) {
                 Toast.makeText(this, "Enter age", Toast.LENGTH_SHORT).show()
@@ -80,6 +94,7 @@ class SymptomsActivity : AppCompatActivity() {
                 Act as a basic medical assistant.
 
                 Patient Age: $age years
+                Patient Gender : $gender
                 Symptoms Duration: $duration days
 
                 Symptoms: ${selectedSymptoms.joinToString(", ")}
@@ -100,6 +115,28 @@ class SymptomsActivity : AppCompatActivity() {
             val intent = Intent(this, AiProcessingActivity::class.java)
             intent.putExtra("PROMPT", prompt)
             startActivity(intent)
+        }
+    }
+    fun getAgeFromDob(dob: String): Int {
+        return try {
+            val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            val birthDate = sdf.parse(dob) ?: return 0
+
+            val dobCal = Calendar.getInstance()
+            dobCal.time = birthDate
+
+            val today = Calendar.getInstance()
+
+            var age = today.get(Calendar.YEAR) - dobCal.get(Calendar.YEAR)
+
+            // adjust if birthday hasn't occurred yet this year
+            if (today.get(Calendar.DAY_OF_YEAR) < dobCal.get(Calendar.DAY_OF_YEAR)) {
+                age--
+            }
+
+            age
+        } catch (e: Exception) {
+            0 // fallback if parsing fails
         }
     }
 }

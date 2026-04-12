@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 class OnboardingAdapter(private val list: List<OnboardingData>) :
     RecyclerView.Adapter<OnboardingAdapter.ViewHolder>() {
 
+    var isDisclaimerAccepted = false
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val image: ImageView = view.findViewById(R.id.image)
         val title: TextView = view.findViewById(R.id.title)
@@ -33,6 +35,11 @@ class OnboardingAdapter(private val list: List<OnboardingData>) :
 
         if (position == 2) {
             holder.checkBox.visibility = View.VISIBLE
+
+            holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
+                isDisclaimerAccepted = isChecked
+            }
+
         } else {
             holder.checkBox.visibility = View.GONE
         }

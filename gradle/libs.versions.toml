@@ -1,28 +1,85 @@
 [versions]
 agp = "8.13.2"
 kotlin = "2.0.21"
-coreKtx = "1.18.0"
+
+# AndroidX
+coreKtx = "1.13.1"
+appcompat = "1.7.0"
+material = "1.12.0"
+activity = "1.9.0"
+constraintlayout = "2.1.4"
+
+# Lifecycle
+lifecycle = "2.7.0"
+gson = "2.10.1"
+# Networking
+okhttp = "4.12.0"
+
+# UI
+lottie = "6.4.0"
+
+# AI
+generativeai = "0.8.0"
+
+# Google Services
+maps = "18.2.0"
+location = "21.0.1"
+
+# Firebase (🔥 use BOM instead of versioning each lib)
+firebaseBom = "33.5.1"
+
+# Google Auth
+credentials = "1.2.0"
+googleid = "1.1.0"
+
+# Testing
 junit = "4.13.2"
-junitVersion = "1.3.0"
-espressoCore = "3.7.0"
-appcompat = "1.7.1"
-material = "1.13.0"
-activity = "1.13.0"
-constraintlayout = "2.2.1"
-common = "0.10.0"
+androidxJunit = "1.1.5"
+espressoCore = "3.5.1"
+
 
 [libraries]
+
+# AndroidX
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-activity = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
-common = { group = "com.google.ai.client.generativeai", name = "common", version.ref = "common" }
+
+#gson
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+
+# Networking
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+
+# UI
+lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
+
+# AI
+generativeai = { group = "com.google.ai.client.generativeai", name = "generativeai", version.ref = "generativeai" }
+
+# Google Services
+play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "maps" }
+play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "location" }
+
+# Firebase (🔥 BOM)
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx" }
+firebase-database = { group = "com.google.firebase", name = "firebase-database-ktx" }
+
+# Google Auth
+credentials = { group = "androidx.credentials", name = "credentials", version.ref = "credentials" }
+googleid = { group = "com.google.android.libraries.identity.googleid", name = "googleid", version.ref = "googleid" }
+
+# Testing
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version = "2.7.0" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-

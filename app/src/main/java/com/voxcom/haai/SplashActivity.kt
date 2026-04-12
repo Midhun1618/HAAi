@@ -7,6 +7,7 @@ import android.os.Looper
 import android.view.animation.AlphaAnimation
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class SplashActivity : AppCompatActivity() {
 
@@ -21,10 +22,31 @@ class SplashActivity : AppCompatActivity() {
         fadeIn.duration = 1500
         logo.startAnimation(fadeIn)
 
-        // Delay and move to next screen
+        // Delay and decide next screen
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, OnboardingActivity::class.java))
+
+            val firebaseUser = FirebaseAuth.getInstance().currentUser
+            val localUser = UserManager.getUser(this)
+
+            when {
+                firebaseUser == null -> {
+                    // ❌ Not logged in
+                    startActivity(Intent(this, LoginActivity::class.java))
+                }
+
+                localUser == null -> {
+                    // ⚠️ Logged in but no local data → onboarding
+                    startActivity(Intent(this, OnboardingActivity::class.java))
+                }
+
+                else -> {
+                    // ✅ Fully logged in
+                    startActivity(Intent(this, MainActivity::class.java))
+                }
+            }
+
             finish()
-        }, 2500) // 2.5 seconds splash
+
+        }, 2500) // keep your 2.5 sec splash
     }
 }

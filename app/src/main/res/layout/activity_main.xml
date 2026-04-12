@@ -48,7 +48,7 @@
                     android:id="@+id/ageweightTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Age : 28 "
+                    android:text="Age :"
                     android:layout_margin="3dp"
                     android:textSize="12sp"/>
             </LinearLayout>
@@ -58,7 +58,8 @@
                 android:layout_weight="1"/>
             <ImageView
                 android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
                 android:src="@drawable/ic_edit"
                 android:layout_gravity="end"/>
         </LinearLayout>

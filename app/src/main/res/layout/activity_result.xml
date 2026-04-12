@@ -28,12 +28,61 @@
         android:textStyle="bold"
         android:text="HEALTH AWARENESS RESULT"/>
     <TextView
+        android:id="@+id/dateTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp"
         android:textSize="14sp"
         android:text="01/01/2222"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:textSize="14sp"
+            android:text="Name :" />
+        <TextView
+            android:id="@+id/nameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:text="NameOfUser" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:textSize="14sp"
+            android:text="Age :" />
+        <TextView
+            android:id="@+id/ageTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:text="00" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:textSize="14sp"
+            android:text="Duration :" />
+        <TextView
+            android:id="@+id/durationTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="16dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:text="00 Days" />
+    </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -53,6 +102,7 @@
             android:textSize="19sp"
             android:layout_marginStart="16dp"/>
         <TextView
+            android:id="@+id/diseaseTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Fever"
@@ -62,6 +112,7 @@
 
     </LinearLayout>
     <TextView
+        android:id="@+id/confidenceTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Confidence : 78%"
@@ -72,16 +123,32 @@
         android:background="@drawable/blue_bubble"
         android:layout_marginVertical="8dp"
         android:layout_marginHorizontal="16dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="Symptoms :"/>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="16dp"
+                android:id="@+id/symptomsLv"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
         android:textSize="18sp"
+        android:textStyle="bold"
         android:text="Possible Cause :"/>
-    <ListView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginHorizontal="16dp"
         android:id="@+id/causeLv"/>
     <TextView
@@ -90,19 +157,28 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
         android:textSize="18sp"
+        android:textStyle="bold"
         android:text="Suggested Actions :"/>
-    <ListView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:id="@+id/actionsLv"/>
         </LinearLayout>
     </ScrollView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/text_secondary"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginHorizontal="16dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginHorizontal="4dp">
+        android:layout_marginHorizontal="16dp">
 
         <Button
             android:id="@+id/checkAgainBtn"
@@ -134,7 +210,7 @@
         android:layout_marginTop="16dp"
         android:textStyle="italic"
         android:textSize="14sp"
-        android:layout_margin="8dp"
+        android:layout_marginBottom="8dp"
         android:text="⚠️ Disclaimer : This result generated by AI is only for Awareness. Please Consult a doctor for medical diagnosis"/>
 
 </LinearLayout>

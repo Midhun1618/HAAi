@@ -1,3 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">HAAi</string>
+    <string name="app_name">HealthTipsApp</string>
+    <string name="map_api">ads</string>
+    <string-array name="health_tips">
+        <!-- Nutrition -->
+        <item>Eat at least five servings of vegetables and fruits every day to get essential vitamins and minerals.</item>
+        <item>Choose whole grains like brown rice, quinoa, and oats over refined white carbohydrates whenever possible.</item>
+        <item>Limit added sugar intake to less than 10% of your total daily calories for better metabolic health.</item>
+        <item>Include a source of healthy fat — like avocado, nuts, or olive oil — in at least one meal per day.</item>
+        <item>Eat slowly and chew your food thoroughly to improve digestion and prevent overeating.</item>
+        <item>Never skip breakfast; a balanced morning meal stabilizes blood sugar and improves focus throughout the day.</item>
+        <item>Reduce your sodium intake by cooking at home and using herbs and spices instead of salt for flavor.</item>
+        <item>Choose lean protein sources like chicken, fish, legumes, and tofu to support muscle repair.</item>
+        <item>Eat a handful of mixed nuts as a daily snack to get heart-healthy fats, protein, and fiber.</item>
+        <item>Minimize ultra-processed foods like chips, instant noodles, and packaged snacks that are high in additives.</item>
+        <item>Incorporate fermented foods like yogurt, kefir, or kimchi to support a healthy gut microbiome.</item>
+        <item>Include oily fish such as salmon or mackerel at least twice a week for omega-3 fatty acids.</item>
+        <item>Use smaller plates to naturally control portion sizes without feeling deprived.</item>
+        <item>Snack on fiber-rich foods like carrots, celery, and hummus to keep hunger at bay between meals.</item>
+        <item>Avoid eating within two hours of bedtime to improve digestion and sleep quality.</item>
+        <item>Read food labels carefully to identify hidden sugars, trans fats, and excessive sodium in packaged products.</item>
+        <item>Cook meals using extra-virgin olive oil instead of butter or processed vegetable oils.</item>
+        <item>Replace sugary breakfast cereals with oatmeal topped with fresh fruit and a sprinkle of seeds.</item>
+        <item>Add a tablespoon of ground flaxseed to smoothies or yogurt for an easy fiber and omega-3 boost.</item>
+        <item>Batch cook healthy meals on weekends so you have nutritious options ready during busy weekdays.</item>
+        <item>Eat a rainbow of colorful vegetables each week because different colors provide different beneficial phytonutrients.</item>
+        <item>Limit red meat consumption to two or three times per week to reduce cardiovascular disease risk.</item>
+        <item>Swap refined pasta for legume-based or whole wheat pasta to significantly increase your fiber intake.</item>
+        <item>Add beans or lentils to soups, salads, and stews to boost protein and fiber without extra cost.</item>
+        <item>Avoid mindless eating in front of screens by sitting at a table and focusing on your food.</item>
+
+        <!-- Hydration -->
+        <item>Drink at least eight glasses (2 litres) of water daily to keep your body properly hydrated.</item>
+        <item>Start every morning with a glass of water before tea or coffee to rehydrate after sleep.</item>
+        <item>Carry a reusable water bottle everywhere you go as a visual reminder to drink consistently.</item>
+        <item>Drink a glass of water before each meal to aid digestion and prevent overeating.</item>
+        <item>Monitor the color of your urine — pale yellow indicates good hydration, dark yellow means drink more.</item>
+        <item>Increase your water intake during hot weather, exercise, or illness to replace fluids lost through sweat.</item>
+        <item>Replace sugary sodas and energy drinks with plain water, herbal teas, or infused fruit water.</item>
+        <item>Eat water-rich foods like cucumber, watermelon, celery, and oranges to contribute to your daily fluid intake.</item>
+        <item>Set hourly phone reminders to drink water if you tend to forget throughout your workday.</item>
+        <item>Limit caffeine and alcohol consumption as both act as diuretics that can lead to mild dehydration.</item>
+
+        <!-- Sleep -->
+        <item>Aim for seven to nine hours of quality sleep every night to support physical and mental health.</item>
+        <item>Go to bed and wake up at the same time every day — even on weekends — to regulate your body clock.</item>
+        <item>Keep your bedroom cool, dark, and quiet to create the ideal environment for deep, restorative sleep.</item>
+        <item>Avoid screens (phone, tablet, TV) for at least one hour before bedtime to reduce blue light exposure.</item>
+        <item>Avoid caffeine after 2 PM since it can remain in your system and disrupt nighttime sleep quality.</item>
+        <item>Develop a relaxing bedtime routine — such as reading, light stretching, or a warm bath — to signal your brain it is time to wind down.</item>
+        <item>Avoid large meals, heavy exercise, or alcohol in the two hours before bed as they all disrupt sleep.</item>
+        <item>Use your bed only for sleep and sex to strengthen the mental association between your bed and rest.</item>
+        <item>If you cannot fall asleep after 20 minutes, get up and do a quiet activity until you feel sleepy again.</item>
+        <item>Short naps of 10–20 minutes can boost alertness without causing grogginess or interfering with nighttime sleep.</item>
+        <item>Manage stress before bed with journaling, meditation, or deep breathing to quiet an overactive mind.</item>
+        <item>Invest in a good quality mattress and pillow that properly support your spine and neck alignment.</item>
+        <item>Avoid sleeping on your stomach, which can cause neck and lower back strain over time.</item>
+        <item>Exposure to natural morning sunlight helps regulate melatonin production and improves overall sleep-wake cycles.</item>
+        <item>Track your sleep with a journal or app for one week to identify patterns affecting your sleep quality.</item>
+
+        <!-- Exercise -->
+        <item>Aim for at least 150 minutes of moderate aerobic activity per week — that is just 30 minutes five days a week.</item>
+        <item>Incorporate strength training at least two days a week to maintain muscle mass and bone density as you age.</item>
+        <item>Take a brisk 10-minute walk after each meal to improve blood sugar regulation and digestion.</item>
+        <item>Use the stairs instead of the elevator whenever possible to sneak extra physical activity into your day.</item>
+        <item>Stretch for at least 5–10 minutes after every workout to improve flexibility and reduce injury risk.</item>
+        <item>Stand up and move around for at least 2 minutes every hour if you work at a desk.</item>
+        <item>Find a physical activity you genuinely enjoy — swimming, dancing, cycling — so exercise feels fun, not forced.</item>
+        <item>Warm up properly before any intense exercise session to prepare your muscles and joints for movement.</item>
+        <item>Walk or cycle for short errands instead of driving to combine exercise with daily tasks effortlessly.</item>
+        <item>Track your daily steps with a phone or watch and gradually work toward 8,000–10,000 steps per day.</item>
+        <item>Core exercises like planks, bridges, and bird-dogs protect your spine and improve balance and posture.</item>
+        <item>Exercise outdoors when possible — fresh air and natural light enhance mood and increase motivation.</item>
+        <item>Try high-intensity interval training (HIIT) two or three times a week for maximum cardiovascular benefit in less time.</item>
+        <item>Rest days are as important as workout days — adequate recovery allows muscles to repair and grow stronger.</item>
+        <item>Work with a trainer or follow a structured program at least once to learn proper exercise form and avoid injury.</item>
+        <item>Join a group fitness class or find a workout partner to stay motivated and accountable over the long term.</item>
+        <item>Practice yoga or tai chi regularly to build strength, flexibility, balance, and mental calm simultaneously.</item>
+        <item>Avoid sitting for more than 90 consecutive minutes — prolonged sitting raises your risk of heart disease and diabetes.</item>
+        <item>Gradually increase workout intensity over weeks rather than jumping too fast, which often leads to burnout or injury.</item>
+        <item>Even gentle exercise like slow walking significantly reduces the risk of chronic diseases compared to complete inactivity.</item>
+
+        <!-- Mental Health -->
+        <item>Practice mindfulness or meditation for even 5–10 minutes daily to reduce stress and improve emotional resilience.</item>
+        <item>Talk to a trusted friend, family member, or therapist when you feel overwhelmed — sharing burdens lightens them.</item>
+        <item>Limit your daily news and social media consumption to protect your mental health from anxiety and negativity.</item>
+        <item>Write in a gratitude journal each morning or evening to train your brain to focus on the positive.</item>
+        <item>Take regular breaks during the workday to prevent mental fatigue and restore your ability to concentrate.</item>
+        <item>Set clear boundaries between work and personal time, especially if you work from home, to prevent burnout.</item>
+        <item>Seek professional help early if you notice persistent sadness, anxiety, or loss of interest in daily life.</item>
+        <item>Spend time in nature regularly — even a 20-minute walk in a park measurably reduces cortisol levels.</item>
+        <item>Practice deep diaphragmatic breathing when stressed: inhale for 4 counts, hold for 4, exhale for 6.</item>
+        <item>Maintain a strong social network because loneliness is as harmful to health as smoking 15 cigarettes a day.</item>
+        <item>Engage in creative hobbies — drawing, music, cooking, writing — to provide mental stimulation and a healthy emotional outlet.</item>
+        <item>Learn to say no without guilt; protecting your energy and time is an essential part of self-care.</item>
+        <item>Volunteer or help others regularly — acts of kindness boost your own mood and sense of purpose.</item>
+        <item>Avoid excessive alcohol use as a coping mechanism for stress, since it worsens anxiety and depression long-term.</item>
+        <item>Challenge negative self-talk by asking yourself whether a thought is true, useful, or kind before accepting it.</item>
+        <item>Laugh often — watching comedy, playing with pets, or joking with friends genuinely reduces stress hormones.</item>
+        <item>Celebrate small wins and acknowledge your daily accomplishments rather than constantly focusing on what is left undone.</item>
+        <item>Unplug completely from all devices for at least one hour a day to give your brain genuine rest.</item>
+        <item>Practice progressive muscle relaxation before bed by tensing and releasing each muscle group to release physical tension.</item>
+        <item>Build a consistent daily routine — predictability and structure reduce decision fatigue and improve emotional stability.</item>
+        <item>Read books regularly to reduce stress, improve focus, and build mental agility across your whole life.</item>
+        <item>Spend quality time with people who energize you and limit time with those who consistently drain you.</item>
+        <item>Practice self-compassion: treat yourself with the same kindness and understanding you would offer a good friend.</item>
+        <item>Take a complete digital detox day once a month to reset your attention and reduce technology dependence.</item>
+        <item>Declutter your living and working space regularly — a tidy environment genuinely supports a calmer, clearer mind.</item>
+
+        <!-- Hygiene -->
+        <item>Wash your hands with soap for at least 20 seconds before meals, after using the bathroom, and after coughing.</item>
+        <item>Brush your teeth twice a day and floss once daily to prevent tooth decay, gum disease, and bad breath.</item>
+        <item>Replace your toothbrush every three months or sooner if the bristles are frayed and less effective.</item>
+        <item>Visit your dentist for a check-up and professional cleaning at least twice a year.</item>
+        <item>Shower or bathe regularly and use mild soap to maintain clean skin and prevent bacterial infections.</item>
+        <item>Moisturize your skin daily after bathing to prevent dryness, cracking, and skin barrier damage.</item>
+        <item>Apply broad-spectrum SPF 30+ sunscreen on all exposed skin every day, even on cloudy days.</item>
+        <item>Keep your fingernails and toenails trimmed and clean to prevent fungal infections and bacteria buildup.</item>
+        <item>Change your bedsheets and pillowcases at least every two weeks to reduce dust mites and skin bacteria.</item>
+        <item>Clean your phone screen daily with an antibacterial wipe, as it carries more germs than a toilet seat.</item>
+        <item>Never share personal items like razors, towels, or lip balm as these can transmit infections.</item>
+        <item>Wash fresh fruits and vegetables thoroughly under running water before eating or cooking them.</item>
+        <item>Practice good food safety: refrigerate leftovers promptly and never leave cooked food at room temperature for over two hours.</item>
+        <item>Keep your home well-ventilated and clean to reduce allergens, mold, and indoor air pollution.</item>
+        <item>Wear clean, breathable socks and rotate your shoes to prevent foot odor and fungal infections.</item>
+
+        <!-- Lifestyle -->
+        <item>Quit smoking — it is the single most impactful action you can take to dramatically extend your healthy lifespan.</item>
+        <item>Limit alcohol to a maximum of one drink per day for women and two for men, or ideally less.</item>
+        <item>Maintain a healthy body weight through balanced eating and regular activity to reduce chronic disease risk.</item>
+        <item>Sit with good posture — feet flat, back straight, screen at eye level — to prevent chronic neck and back pain.</item>
+        <item>Take regular vacations or proper rest days because chronic overwork leads to serious long-term physical and mental decline.</item>
+        <item>Practice safe sex and get regular sexual health screenings as part of your overall health routine.</item>
+        <item>Wear your seatbelt every time you are in a car — it is the single most effective road-safety measure available.</item>
+        <item>Avoid recreational drug use and be aware of the addictive potential of any prescribed medications you take.</item>
+        <item>Spend less time sitting and more time in light, non-exercise movement like standing, walking, and stretching.</item>
+        <item>Protect your hearing by keeping headphone volume below 60% and wearing ear protection in loud environments.</item>
+        <item>Protect your eyes from UV damage by wearing quality sunglasses with UV400 protection outdoors.</item>
+        <item>Take regular eye tests every two years (or annually over 60) to catch vision changes early.</item>
+        <item>Learn basic first aid and CPR — these skills can save a life and help you stay calm in emergencies.</item>
+        <item>Keep your home free of hazards like loose rugs, poor lighting, and slippery floors to prevent falls.</item>
+        <item>Spend meaningful time with family and friends offline — strong relationships are one of the strongest predictors of long life.</item>
+        <item>Learn to cook simple, healthy meals at home to have control over ingredients, portions, and overall food quality.</item>
+        <item>Manage finances wisely, as financial stress is a major and often underestimated driver of poor physical and mental health.</item>
+        <item>Practice mindful technology use — notice when apps or social media make you feel worse and reduce time on them.</item>
+        <item>Challenge your brain regularly with puzzles, learning new skills, or reading to support cognitive health as you age.</item>
+        <item>Spend time playing — whether sports, games, or childlike activities — because play reduces stress and boosts wellbeing at any age.</item>
+        <item>Build a consistent morning routine that includes something nourishing — exercise, reading, or a healthy breakfast.</item>
+        <item>Limit your time in environments with poor air quality and consider an air purifier if you live in a polluted area.</item>
+        <item>Give yourself grace when you fall short of health goals — consistency over months matters far more than perfection on any one day.</item>
+        <item>Keep a daily planner or to-do list to reduce mental load, lower anxiety, and improve your sense of control.</item>
+        <item>Donate blood if you are able — it saves lives and regular donors often report a positive sense of purpose.</item>
+
+        <!-- Prevention -->
+        <item>Schedule a full annual health check-up with your doctor even when you feel completely healthy and symptom-free.</item>
+        <item>Keep your vaccinations up to date — including annual flu shots and any boosters recommended for your age group.</item>
+        <item>Know your family medical history and share it with your doctor so they can monitor relevant risk factors.</item>
+        <item>Check your blood pressure regularly — hypertension is called the silent killer because it rarely causes symptoms.</item>
+        <item>Get your cholesterol and blood sugar tested annually after age 35 to catch early signs of metabolic disease.</item>
+        <item>Do regular self-examinations of your skin, breasts (women), or testicles (men) and report any changes promptly.</item>
+        <item>Wear protective gear appropriate for any sport or physical activity — helmets, knee pads, and wrist guards prevent serious injuries.</item>
+        <item>Never ignore persistent symptoms like unexplained weight loss, fatigue, or changes in bowel habits — see a doctor promptly.</item>
+        <item>Get screened for colorectal cancer starting at age 45 or earlier if you have a family history of the disease.</item>
+        <item>Women should have regular mammograms starting at 40 and cervical smear tests every 3–5 years from age 25.</item>
+        <item>Men over 50 should discuss PSA (prostate cancer) screening with their doctor at their annual check-up.</item>
+        <item>Know the warning signs of a heart attack — chest pain, arm/jaw pain, sweating, nausea — and call emergency services immediately.</item>
+        <item>Know the signs of stroke: Face drooping, Arm weakness, Speech difficulty, Time to call emergency services (F.A.S.T.).</item>
+        <item>Manage chronic conditions like diabetes, asthma, or high blood pressure by following your treatment plan consistently.</item>
+        <item>Avoid self-medicating with over-the-counter drugs for longer than recommended without consulting a healthcare professional.</item>
+        <item>Get a bone density scan if you are a woman over 65 or a man over 70 to assess osteoporosis risk.</item>
+        <item>Maintain a healthy BMI (18.5–24.9) since obesity significantly increases risk of heart disease, diabetes, and certain cancers.</item>
+        <item>Avoid prolonged sun exposure between 10 AM and 4 PM and always use sunscreen to reduce skin cancer risk.</item>
+        <item>If you feel a suspicious lump, experience unusual bleeding, or have any symptom persisting more than two weeks, see a doctor immediately.</item>
+        <item>Take prescribed medications exactly as directed and complete the full course even if you start feeling better early.</item>
+        <item>Discuss your mental health openly with your doctor — it is as medically important as any physical condition.</item>
+        <item>Wash cuts and scrapes immediately, apply antiseptic, and see a doctor if a wound becomes red, swollen, or infected.</item>
+        <item>Travel safely by getting recommended travel vaccines and carrying a well-stocked first-aid kit when going abroad.</item>
+        <item>Install carbon monoxide and smoke detectors in your home and test them every six months.</item>
+        <item>Practice safe food handling: separate raw meat from other foods, cook to safe temperatures, and store correctly.</item>
+    </string-array>
 </resources>

@@ -11,63 +11,88 @@ import java.util.*
 
 class ResultActivity : AppCompatActivity() {
 
+    private lateinit var nameTv: TextView
+    private lateinit var ageTv: TextView
+    private lateinit var durationTv: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_result)
 
-        // UI Elements
         val diseaseTv = findViewById<TextView>(R.id.diseaseTv)
         val confidenceTv = findViewById<TextView>(R.id.confidenceTv)
         val dateTv = findViewById<TextView>(R.id.dateTv)
 
+        nameTv = findViewById(R.id.nameTv)
+        ageTv = findViewById(R.id.ageTv)
+        durationTv = findViewById(R.id.durationTv)
+
         val causeContainer = findViewById<LinearLayout>(R.id.causeLv)
         val actionContainer = findViewById<LinearLayout>(R.id.actionsLv)
+        val symptomsContainer = findViewById<LinearLayout>(R.id.symptomsLv)
 
         val checkAgainBtn = findViewById<Button>(R.id.checkAgainBtn)
         val saveReportBtn = findViewById<Button>(R.id.saveReportBtn)
 
-        // Date
+        // date
         val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         dateTv.text = sdf.format(Date())
 
         val resultText = intent.getStringExtra("RESULT")
+        val ageValue = intent.getStringExtra("AGE") ?: ""
+        val durationValue = intent.getStringExtra("DURATION") ?: ""
+        val symptoms = intent.getStringArrayListExtra("SYMPTOMS") ?: arrayListOf()
+
+        ageTv.text = ageValue
+        durationTv.text = "$durationValue days"
+
+        var disease = ""
+        var confidence = ""
+        val causesList = mutableListOf<String>()
+        val actionsList = mutableListOf<String>()
 
         try {
-            val cleanJson = resultText
-                ?.replace("```json", "")
-                ?.replace("```", "")
-                ?.trim()
+            val jsonObject = JSONObject(resultText!!)
 
-            val jsonObject = JSONObject(cleanJson!!)
-
-            val disease = jsonObject.getString("disease")
-            val confidence = jsonObject.getString("confidence")
+            disease = jsonObject.getString("disease")
+            confidence = jsonObject.getString("confidence")
 
             val causesArray = jsonObject.getJSONArray("causes")
             val actionsArray = jsonObject.getJSONArray("actions")
 
-            // Set main text
             diseaseTv.text = disease
             confidenceTv.text = "Confidence: $confidence"
 
-            // 🔥 CLEAR OLD VIEWS (important if reused)
             causeContainer.removeAllViews()
             actionContainer.removeAllViews()
+            symptomsContainer.removeAllViews()
 
-            // 🔥 ADD CAUSES
             for (i in 0 until causesArray.length()) {
+                val text = causesArray.getString(i)
+                causesList.add(text)
+
                 val tv = TextView(this)
-                tv.text = "• " + causesArray.getString(i)
+                tv.text = "• $text"
                 tv.textSize = 18f
                 tv.setPadding(8, 8, 8, 8)
                 causeContainer.addView(tv)
             }
 
-            // 🔥 ADD ACTIONS
-            for (i in 0 until actionsArray.length()) {
+            for (symptom in symptoms) {
                 val tv = TextView(this)
-                tv.text = "• " + actionsArray.getString(i)
+                tv.text = "• $symptom"
+                tv.textSize = 18f
+                tv.setPadding(8, 8, 8, 8)
+                symptomsContainer.addView(tv)
+            }
+
+            for (i in 0 until actionsArray.length()) {
+                val text = actionsArray.getString(i)
+                actionsList.add(text)
+
+                val tv = TextView(this)
+                tv.text = "• $text"
                 tv.textSize = 18f
                 tv.setPadding(8, 8, 8, 8)
                 actionContainer.addView(tv)
@@ -83,7 +108,24 @@ class ResultActivity : AppCompatActivity() {
         }
 
         saveReportBtn.setOnClickListener {
-            Toast.makeText(this, "Report Saved (feature coming 😄)", Toast.LENGTH_SHORT).show()
+
+            val report = JSONObject()
+
+            report.put("date", dateTv.text.toString())
+            report.put("disease", disease)
+            report.put("confidence", confidence)
+            report.put("age", ageValue)
+            report.put("duration", durationValue)
+            report.put("symptoms", symptoms)
+            report.put("causes", causesList)
+            report.put("actions", actionsList)
+
+            ReportManager.saveReport(this, report)
+
+            Toast.makeText(this, "Report Saved Successfully ✅", Toast.LENGTH_SHORT).show()
+
+            saveReportBtn.isEnabled = false
+            saveReportBtn.text = "Saved"
         }
     }
 }

@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.googleid)
 
     implementation(libs.gson)
+    implementation(libs.activity)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

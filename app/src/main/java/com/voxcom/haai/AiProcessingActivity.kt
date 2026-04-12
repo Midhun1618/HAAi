@@ -2,9 +2,13 @@ package com.voxcom.haai
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import android.view.animation.AlphaAnimation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import okhttp3.Call
@@ -22,12 +26,32 @@ import java.util.concurrent.TimeUnit
 class AiProcessingActivity : AppCompatActivity() {
 
     private lateinit var loaderImg: ImageView
+    private lateinit var loaderTxt: TextView
+
+    private val sentences = listOf(
+        "Analysing your Symptoms",
+        "This might take a few seconds",
+        "Almost there",
+        "Getting your Report ready"
+    )
+
+    private var index = 0
+    private val handler = Handler(Looper.getMainLooper())
+    private val delay: Long = 3000
+
+    private val runnable = object : Runnable {
+        override fun run() {
+            changeTextWithFade()
+            handler.postDelayed(this, delay)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ai_processing)
 
         loaderImg = findViewById(R.id.loaderImageView)
+        loaderTxt = findViewById(R.id.loaderTv)
 
         val rotationAnim = AnimationUtils.loadAnimation(this, R.anim.rotate)
         loaderImg.startAnimation(rotationAnim)
@@ -38,8 +62,6 @@ class AiProcessingActivity : AppCompatActivity() {
         val symptoms = intent.getStringArrayListExtra("SYMPTOMS") ?: arrayListOf()
         val extraInfo = intent.getStringExtra("EXTRA") ?: ""
 
-        Log.d("AI_DEBUG", "Prompt received: $prompt")
-
         if (prompt.isEmpty()) {
             Toast.makeText(this, "No input received", Toast.LENGTH_SHORT).show()
             finish()
@@ -47,6 +69,32 @@ class AiProcessingActivity : AppCompatActivity() {
         }
 
         callAI(prompt, age, duration, symptoms, extraInfo)
+
+        handler.post(runnable)
+    }
+
+    private fun changeTextWithFade() {
+        val fadeOut = AlphaAnimation(1f, 0f).apply {
+            duration = 500
+        }
+
+        val fadeIn = AlphaAnimation(0f, 1f).apply {
+            duration = 500
+        }
+
+        fadeOut.setAnimationListener(object : android.view.animation.Animation.AnimationListener {
+            override fun onAnimationStart(animation: android.view.animation.Animation?) {}
+
+            override fun onAnimationEnd(animation: android.view.animation.Animation?) {
+                index = (index + 1) % sentences.size
+                loaderTxt.text = sentences[index]
+                loaderTxt.startAnimation(fadeIn)
+            }
+
+            override fun onAnimationRepeat(animation: android.view.animation.Animation?) {}
+        })
+
+        loaderTxt.startAnimation(fadeOut)
     }
 
     private fun callAI(
@@ -66,17 +114,21 @@ class AiProcessingActivity : AppCompatActivity() {
 
         val jsonObject = JSONObject()
 
-        val part = JSONObject()
-        part.put("text", prompt)
+        val part = JSONObject().apply {
+            put("text", prompt)
+        }
 
-        val partsArray = JSONArray()
-        partsArray.put(part)
+        val partsArray = JSONArray().apply {
+            put(part)
+        }
 
-        val content = JSONObject()
-        content.put("parts", partsArray)
+        val content = JSONObject().apply {
+            put("parts", partsArray)
+        }
 
-        val contentsArray = JSONArray()
-        contentsArray.put(content)
+        val contentsArray = JSONArray().apply {
+            put(content)
+        }
 
         jsonObject.put("contents", contentsArray)
 
@@ -87,13 +139,9 @@ class AiProcessingActivity : AppCompatActivity() {
             .post(jsonObject.toString().toRequestBody("application/json".toMediaType()))
             .build()
 
-        Log.d("AI_DEBUG", "Sending request...")
-
         client.newCall(request).enqueue(object : Callback {
 
             override fun onFailure(call: Call, e: IOException) {
-                Log.e("AI_ERROR", "Request failed", e)
-
                 runOnUiThread {
                     loaderImg.clearAnimation()
                     Toast.makeText(this@AiProcessingActivity, "API Failed", Toast.LENGTH_LONG).show()
@@ -115,8 +163,6 @@ class AiProcessingActivity : AppCompatActivity() {
                 }
 
                 val body = response.body?.string() ?: ""
-
-                Log.d("AI_RESPONSE", body)
 
                 if (body.isEmpty()) {
                     runOnUiThread {
@@ -152,8 +198,6 @@ class AiProcessingActivity : AppCompatActivity() {
                         .replace("```", "")
                         .trim()
 
-                    Log.d("AI_CLEAN", cleanText)
-
                     runOnUiThread {
                         loaderImg.clearAnimation()
 
@@ -169,8 +213,6 @@ class AiProcessingActivity : AppCompatActivity() {
                     }
 
                 } catch (e: Exception) {
-                    Log.e("AI_PARSE_ERROR", "Parsing failed", e)
-
                     runOnUiThread {
                         loaderImg.clearAnimation()
                         Toast.makeText(this@AiProcessingActivity, "Parse Error", Toast.LENGTH_LONG).show()
@@ -178,5 +220,10 @@ class AiProcessingActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(runnable)
     }
 }

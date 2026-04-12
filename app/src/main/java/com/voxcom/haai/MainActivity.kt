@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         val SymptomsBtn = findViewById<CardView>(R.id.card1)
         val EmergencyBtn = findViewById<CardView>(R.id.card4)
+        val ReportsBtn = findViewById<CardView>(R.id.card3)
 
         greet = findViewById(R.id.greetingTv)
         mailTv = findViewById(R.id.emailTv)
@@ -78,6 +79,9 @@ class MainActivity : AppCompatActivity() {
         }
         EmergencyBtn.setOnClickListener {
             startActivity(Intent(this, EmergencyActivity::class.java))
+        }
+        ReportsBtn.setOnClickListener {
+            startActivity(Intent(this, ReportsActivity::class.java))
         }
     }
     fun getAgeFromDob(dob: String): Int {

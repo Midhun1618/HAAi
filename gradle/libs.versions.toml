@@ -36,6 +36,7 @@ googleid = "1.1.0"
 junit = "4.13.2"
 androidxJunit = "1.1.5"
 espressoCore = "3.5.1"
+activityVersion = "1.13.0"
 
 
 [libraries]
@@ -78,6 +79,7 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version = "2.7.0" }
+activity = { group = "androidx.activity", name = "activity", version.ref = "activityVersion" }
 
 
 [plugins]

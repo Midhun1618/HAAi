@@ -115,6 +115,7 @@ class SymptomsActivity : AppCompatActivity() {
             val intent = Intent(this, AiProcessingActivity::class.java)
             intent.putExtra("PROMPT", prompt)
             startActivity(intent)
+            finish()
         }
     }
     fun getAgeFromDob(dob: String): Int {

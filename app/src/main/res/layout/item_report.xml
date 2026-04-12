@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp">
+    android:layout_margin="18dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

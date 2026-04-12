@@ -135,8 +135,6 @@ class EmergencyActivity : AppCompatActivity() {
     }
 
     private fun injectOsmHtml(lat: Double, lng: Double) {
-        // We use string interpolation carefully here.
-        // Note the use of ${'$'} to escape the dollar sign for JavaScript template literals.
         val html = """
     <!DOCTYPE html>
     <html>

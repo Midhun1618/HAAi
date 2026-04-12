@@ -112,36 +112,76 @@ class ReportsActivity : AppCompatActivity() {
             // 🔥 ACCORDION CLICK LOGIC (clean + stable)
             item.setOnClickListener {
 
-                // 👉 Same item clicked
                 if (expandLayout == lastExpanded) {
 
                     if (expandLayout.visibility == View.VISIBLE) {
-                        expandLayout.visibility = View.GONE
+                        collapse(expandLayout)
                         reportImage.visibility = View.VISIBLE
                         lastExpanded = null
                         lastImage = null
                     } else {
-                        expandLayout.visibility = View.VISIBLE
+                        expand(expandLayout)
                         reportImage.visibility = View.GONE
                     }
 
                     return@setOnClickListener
                 }
 
-                // 👉 Close previous
-                lastExpanded?.visibility = View.GONE
+                // close previous
+                lastExpanded?.let {
+                    collapse(it)
+                }
                 lastImage?.visibility = View.VISIBLE
 
-                // 👉 Open new
-                expandLayout.visibility = View.VISIBLE
+                // open new
+                expand(expandLayout)
                 reportImage.visibility = View.GONE
 
-                // 👉 Update tracker
                 lastExpanded = expandLayout
                 lastImage = reportImage
             }
 
             container.addView(item)
         }
+    }
+    private fun expand(view: View) {
+        view.measure(
+            View.MeasureSpec.makeMeasureSpec((view.parent as View).width, View.MeasureSpec.EXACTLY),
+            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+        )
+
+        val targetHeight = view.measuredHeight
+        view.layoutParams.height = 0
+        view.visibility = View.VISIBLE
+
+        val animator = android.animation.ValueAnimator.ofInt(0, targetHeight)
+        animator.duration = 300
+
+        animator.addUpdateListener {
+            view.layoutParams.height = it.animatedValue as Int
+            view.requestLayout()
+        }
+
+        animator.start()
+    }
+
+    private fun collapse(view: View) {
+        val initialHeight = view.measuredHeight
+
+        val animator = android.animation.ValueAnimator.ofInt(initialHeight, 0)
+        animator.duration = 300
+
+        animator.addUpdateListener {
+            view.layoutParams.height = it.animatedValue as Int
+            view.requestLayout()
+        }
+
+        animator.addListener(object : android.animation.AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: android.animation.Animator) {
+                view.visibility = View.GONE
+            }
+        })
+
+        animator.start()
     }
 }

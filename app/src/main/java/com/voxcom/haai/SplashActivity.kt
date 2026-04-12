@@ -36,7 +36,7 @@ class SplashActivity : AppCompatActivity() {
 
                 localUser == null -> {
                     // ⚠️ Logged in but no local data → onboarding
-                    startActivity(Intent(this, OnboardingActivity::class.java))
+                    startActivity(Intent(this, LoginActivity::class.java))
                 }
 
                 else -> {

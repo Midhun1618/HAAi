@@ -7,8 +7,6 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.ai.client.generativeai.GenerativeModel
-import kotlinx.coroutines.*
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaType
@@ -35,6 +33,10 @@ class AiProcessingActivity : AppCompatActivity() {
         loaderImg.startAnimation(rotationAnim)
 
         val prompt = intent.getStringExtra("PROMPT") ?: ""
+        val age = intent.getStringExtra("AGE") ?: ""
+        val duration = intent.getStringExtra("DURATION") ?: ""
+        val symptoms = intent.getStringArrayListExtra("SYMPTOMS") ?: arrayListOf()
+        val extraInfo = intent.getStringExtra("EXTRA") ?: ""
 
         Log.d("AI_DEBUG", "Prompt received: $prompt")
 
@@ -44,10 +46,16 @@ class AiProcessingActivity : AppCompatActivity() {
             return
         }
 
-        callAI(prompt)
+        callAI(prompt, age, duration, symptoms, extraInfo)
     }
 
-    private fun callAI(prompt: String) {
+    private fun callAI(
+        prompt: String,
+        age: String,
+        duration: String,
+        selectedSymptoms: ArrayList<String>,
+        extraInfo: String
+    ) {
 
         val client = OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
@@ -75,11 +83,11 @@ class AiProcessingActivity : AppCompatActivity() {
         val request = Request.Builder()
             .url("https://generativelanguage.googleapis.com/v1beta/models/${Info.model}:generateContent")
             .addHeader("Content-Type", "application/json")
-            .addHeader("X-goog-api-key", Info.api) // ✅ IMPORTANT
+            .addHeader("X-goog-api-key", Info.api)
             .post(jsonObject.toString().toRequestBody("application/json".toMediaType()))
             .build()
 
-        Log.d("AI_DEBUG", "Sending request with correct endpoint...")
+        Log.d("AI_DEBUG", "Sending request...")
 
         client.newCall(request).enqueue(object : Callback {
 
@@ -93,12 +101,33 @@ class AiProcessingActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call, response: Response) {
-                val body = response.body?.string()
 
-                Log.d("AI_RESPONSE", body ?: "NULL")
+                if (!response.isSuccessful) {
+                    runOnUiThread {
+                        loaderImg.clearAnimation()
+                        Toast.makeText(
+                            this@AiProcessingActivity,
+                            "Server Error ${response.code}",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    return
+                }
+
+                val body = response.body?.string() ?: ""
+
+                Log.d("AI_RESPONSE", body)
+
+                if (body.isEmpty()) {
+                    runOnUiThread {
+                        loaderImg.clearAnimation()
+                        Toast.makeText(this@AiProcessingActivity, "Empty response", Toast.LENGTH_LONG).show()
+                    }
+                    return
+                }
 
                 try {
-                    val json = JSONObject(body!!)
+                    val json = JSONObject(body)
 
                     if (json.has("error")) {
                         val msg = json.getJSONObject("error").getString("message")
@@ -123,11 +152,18 @@ class AiProcessingActivity : AppCompatActivity() {
                         .replace("```", "")
                         .trim()
 
+                    Log.d("AI_CLEAN", cleanText)
+
                     runOnUiThread {
                         loaderImg.clearAnimation()
 
                         val intent = Intent(this@AiProcessingActivity, ResultActivity::class.java)
                         intent.putExtra("RESULT", cleanText)
+                        intent.putExtra("AGE", age)
+                        intent.putExtra("DURATION", duration)
+                        intent.putStringArrayListExtra("SYMPTOMS", ArrayList(selectedSymptoms))
+                        intent.putExtra("EXTRA", extraInfo)
+
                         startActivity(intent)
                         finish()
                     }

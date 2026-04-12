@@ -4,6 +4,7 @@ import android.content.Intent
 import android.health.connect.datatypes.units.Temperature
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -14,23 +15,41 @@ import androidx.core.view.WindowInsetsCompat
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     private lateinit var greet : TextView
     private lateinit var mailTv : TextView
     private lateinit var ageTv : TextView
+    private lateinit var usernameTv : TextView
+    private lateinit var textView: TextView
+    private lateinit var button: ImageView
+    private lateinit var texts: Array<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
         val SymptomsBtn = findViewById<CardView>(R.id.card1)
-        val TipsBtn = findViewById<CardView>(R.id.card2)
         val EmergencyBtn = findViewById<CardView>(R.id.card4)
 
         greet = findViewById(R.id.greetingTv)
         mailTv = findViewById(R.id.emailTv)
         ageTv = findViewById(R.id.ageTvm)
+        usernameTv = findViewById(R.id.usernameTv)
+
+        textView = findViewById(R.id.tipTv)
+        button = findViewById(R.id.buttonGenerate)
+
+        // Load texts from strings.xml
+        texts = resources.getStringArray(R.array.health_tips)
+
+        // Show one random text initially
+        showRandomText()
+
+        button.setOnClickListener {
+            showRandomText()
+        }
 
         val today = Calendar.getInstance()
 
@@ -46,7 +65,8 @@ class MainActivity : AppCompatActivity() {
             }else{
                 greet.text = "Hi, $name"
             }
-            ageTv.text=age.toString()
+            usernameTv.text = name
+            ageTv.text="$age years"
             mailTv.text =email
         } ?: run {
             Toast.makeText(this, "User data not found", Toast.LENGTH_SHORT).show()
@@ -55,9 +75,6 @@ class MainActivity : AppCompatActivity() {
 
         SymptomsBtn.setOnClickListener {
             startActivity(Intent(this, SymptomsActivity::class.java))
-        }
-        TipsBtn.setOnClickListener {
-            startActivity(Intent(this, HealthTipsActivity::class.java))
         }
         EmergencyBtn.setOnClickListener {
             startActivity(Intent(this, EmergencyActivity::class.java))
@@ -84,5 +101,9 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             0 // fallback if parsing fails
         }
+    }
+    private fun showRandomText() {
+        val randomIndex = Random.nextInt(texts.size)
+        textView.text = texts[randomIndex]
     }
 }

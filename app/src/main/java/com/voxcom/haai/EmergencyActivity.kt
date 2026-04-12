@@ -43,6 +43,12 @@ class EmergencyActivity : AppCompatActivity() {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
+        webView.apply {
+            webViewClient = android.webkit.WebViewClient()
+            settings.javaScriptEnabled = true
+            settings.domStorageEnabled = true
+        }
+
         setupMapWebView()
         setupBackNavigation()
 

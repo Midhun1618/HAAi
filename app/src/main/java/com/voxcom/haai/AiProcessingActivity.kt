@@ -57,6 +57,7 @@ class AiProcessingActivity : AppCompatActivity() {
         loaderImg.startAnimation(rotationAnim)
 
         val prompt = intent.getStringExtra("PROMPT") ?: ""
+        val name = intent.getStringExtra("NAME") ?: ""
         val age = intent.getStringExtra("AGE") ?: ""
         val duration = intent.getStringExtra("DURATION") ?: ""
         val symptoms = intent.getStringArrayListExtra("SYMPTOMS") ?: arrayListOf()
@@ -68,7 +69,8 @@ class AiProcessingActivity : AppCompatActivity() {
             return
         }
 
-        callAI(prompt, age, duration, symptoms, extraInfo)
+        callAI(prompt,name, age, duration, symptoms, extraInfo)
+
 
         handler.post(runnable)
     }
@@ -99,6 +101,7 @@ class AiProcessingActivity : AppCompatActivity() {
 
     private fun callAI(
         prompt: String,
+        name: String,
         age: String,
         duration: String,
         selectedSymptoms: ArrayList<String>,
@@ -203,10 +206,16 @@ class AiProcessingActivity : AppCompatActivity() {
 
                         val intent = Intent(this@AiProcessingActivity, ResultActivity::class.java)
                         intent.putExtra("RESULT", cleanText)
+                        intent.putExtra("NAME", name)
                         intent.putExtra("AGE", age)
                         intent.putExtra("DURATION", duration)
                         intent.putStringArrayListExtra("SYMPTOMS", ArrayList(selectedSymptoms))
                         intent.putExtra("EXTRA", extraInfo)
+
+                        Log.d("DEBUG", "AGE: $age")
+                        Log.d("DEBUG", "NAME: $name")
+                        Log.d("DEBUG", "DURATION: $duration")
+                        Log.d("DEBUG", "SYMPTOMS: $selectedSymptoms")
 
                         startActivity(intent)
                         finish()

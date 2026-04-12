@@ -79,6 +79,7 @@ class SymptomsActivity : AppCompatActivity() {
             val duration = durationEt.text.toString()
             val extraInfo = additionalInput.text.toString()
             val gender = user?.gender
+            val name = user?.name
 
             if (age.isEmpty()) {
                 Toast.makeText(this, "Enter age", Toast.LENGTH_SHORT).show()
@@ -104,7 +105,7 @@ class SymptomsActivity : AppCompatActivity() {
 
                 {
                   "disease": "",
-                  "confidence": "",
+                  "confidence": "%",
                   "causes": [],
                   "actions": []
                 }
@@ -113,7 +114,14 @@ class SymptomsActivity : AppCompatActivity() {
             """.trimIndent()
 
             val intent = Intent(this, AiProcessingActivity::class.java)
+
             intent.putExtra("PROMPT", prompt)
+            intent.putExtra("NAME", name)
+            intent.putExtra("AGE", age)
+            intent.putExtra("DURATION", duration)
+            intent.putStringArrayListExtra("SYMPTOMS", ArrayList(selectedSymptoms))
+            intent.putExtra("EXTRA", extraInfo)
+
             startActivity(intent)
             finish()
         }
@@ -130,7 +138,6 @@ class SymptomsActivity : AppCompatActivity() {
 
             var age = today.get(Calendar.YEAR) - dobCal.get(Calendar.YEAR)
 
-            // adjust if birthday hasn't occurred yet this year
             if (today.get(Calendar.DAY_OF_YEAR) < dobCal.get(Calendar.DAY_OF_YEAR)) {
                 age--
             }

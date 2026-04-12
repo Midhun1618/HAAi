@@ -40,10 +40,13 @@ class ResultActivity : AppCompatActivity() {
         dateTv.text = sdf.format(Date())
 
         val resultText = intent.getStringExtra("RESULT")
+        val name = intent.getStringExtra("NAME")
         val ageValue = intent.getStringExtra("AGE") ?: ""
         val durationValue = intent.getStringExtra("DURATION") ?: ""
         val symptoms = intent.getStringArrayListExtra("SYMPTOMS") ?: arrayListOf()
 
+
+        nameTv.text=name
         ageTv.text = ageValue
         durationTv.text = "$durationValue days"
 

@@ -40,6 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
+                android:textColor="@color/text_white"
                 android:text="Fever"
                 android:layout_marginBottom="4dp"
                 android:backgroundTint="@color/text_secondary"/>
@@ -48,6 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
+                android:textColor="@color/text_white"
                 android:text="Cough"
                 android:layout_marginBottom="4dp"
                 android:backgroundTint="@color/text_secondary"/>
@@ -56,6 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
+                android:textColor="@color/text_white"
                 android:text="Headache"
                 android:layout_marginBottom="4dp"
                 android:backgroundTint="@color/text_secondary"/>
@@ -64,6 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
+                android:textColor="@color/text_white"
                 android:text="Body Pain"
                 android:layout_marginBottom="4dp"
                 android:backgroundTint="@color/text_secondary"/>
@@ -72,6 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
+                android:textColor="@color/text_white"
                 android:text="Nausea"
                 android:layout_marginBottom="4dp"
                 android:backgroundTint="@color/text_secondary"/>
@@ -89,6 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
+                android:textColor="@color/text_white"
                 android:text="Vomiting"
                 android:layout_marginBottom="4dp"
                 android:backgroundTint="@color/text_secondary"/>
@@ -97,6 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
+                android:textColor="@color/text_white"
                 android:text="Diarrhea"
                 android:layout_marginBottom="4dp"
                 android:backgroundTint="@color/text_secondary"/>
@@ -105,6 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
+                android:textColor="@color/text_white"
                 android:text="Fatigue"
                 android:layout_marginBottom="4dp"
                 android:backgroundTint="@color/text_secondary"/>
@@ -113,6 +121,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
+                android:textColor="@color/text_white"
                 android:text="Sore Throat"
                 android:layout_marginBottom="4dp"
                 android:backgroundTint="@color/text_secondary"/>
@@ -121,6 +130,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
+                android:textColor="@color/text_white"
                 android:text="Chest pain"
                 android:layout_marginBottom="4dp"
                 android:backgroundTint="@color/text_secondary"/>
@@ -186,6 +196,7 @@
         android:layout_height="wrap_content"
         android:textSize="12sp"
         android:text="CHECK NOW"
+        android:textColor="@color/text_white"
         android:backgroundTint="@color/primary_blue"
         android:layout_margin="16dp"/>
 

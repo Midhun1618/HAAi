@@ -43,7 +43,6 @@ class MainActivity : AppCompatActivity() {
         textView = findViewById(R.id.tipTv)
         button = findViewById(R.id.buttonGenerate)
 
-        // Load texts from strings.xml
         texts = resources.getStringArray(R.array.health_tips)
 
 
@@ -101,14 +100,13 @@ class MainActivity : AppCompatActivity() {
 
             var age = today.get(Calendar.YEAR) - dobCal.get(Calendar.YEAR)
 
-            // adjust if birthday hasn't occurred yet this year
             if (today.get(Calendar.DAY_OF_YEAR) < dobCal.get(Calendar.DAY_OF_YEAR)) {
                 age--
             }
 
             age
         } catch (e: Exception) {
-            0 // fallback if parsing fails
+            0
         }
     }
     private fun showRandomText() {

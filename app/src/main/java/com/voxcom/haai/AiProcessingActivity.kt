@@ -115,30 +115,14 @@ class AiProcessingActivity : AppCompatActivity() {
             .retryOnConnectionFailure(true)
             .build()
 
-        val jsonObject = JSONObject()
-
-        val part = JSONObject().apply {
-            put("text", prompt)
+        // ✅ SIMPLE REQUEST (send only prompt)
+        val jsonObject = JSONObject().apply {
+            put("prompt", prompt)
         }
-
-        val partsArray = JSONArray().apply {
-            put(part)
-        }
-
-        val content = JSONObject().apply {
-            put("parts", partsArray)
-        }
-
-        val contentsArray = JSONArray().apply {
-            put(content)
-        }
-
-        jsonObject.put("contents", contentsArray)
 
         val request = Request.Builder()
-            .url("https://generativelanguage.googleapis.com/v1beta/models/${Info.model}:generateContent")
+            .url("https://call-gemi.onrender.com/ask") // ✅ backend
             .addHeader("Content-Type", "application/json")
-            .addHeader("X-goog-api-key", Info.api)
             .post(jsonObject.toString().toRequestBody("application/json".toMediaType()))
             .build()
 
@@ -179,8 +163,7 @@ class AiProcessingActivity : AppCompatActivity() {
                     val json = JSONObject(body)
 
                     if (json.has("error")) {
-                        val msg = json.getJSONObject("error").getString("message")
-
+                        val msg = json.getString("error")
                         runOnUiThread {
                             loaderImg.clearAnimation()
                             Toast.makeText(this@AiProcessingActivity, msg, Toast.LENGTH_LONG).show()
@@ -188,34 +171,19 @@ class AiProcessingActivity : AppCompatActivity() {
                         return
                     }
 
-                    val text = json
-                        .getJSONArray("candidates")
-                        .getJSONObject(0)
-                        .getJSONObject("content")
-                        .getJSONArray("parts")
-                        .getJSONObject(0)
-                        .getString("text")
-
-                    val cleanText = text
-                        .replace("```json", "")
-                        .replace("```", "")
-                        .trim()
+                    // ✅ IMPORTANT: convert BACK to STRING JSON (same as before)
+                    val cleanText = json.toString()
 
                     runOnUiThread {
                         loaderImg.clearAnimation()
 
                         val intent = Intent(this@AiProcessingActivity, ResultActivity::class.java)
-                        intent.putExtra("RESULT", cleanText)
+                        intent.putExtra("RESULT", cleanText) // ✅ SAME STRUCTURE
                         intent.putExtra("NAME", name)
                         intent.putExtra("AGE", age)
                         intent.putExtra("DURATION", duration)
                         intent.putStringArrayListExtra("SYMPTOMS", ArrayList(selectedSymptoms))
                         intent.putExtra("EXTRA", extraInfo)
-
-                        Log.d("DEBUG", "AGE: $age")
-                        Log.d("DEBUG", "NAME: $name")
-                        Log.d("DEBUG", "DURATION: $duration")
-                        Log.d("DEBUG", "SYMPTOMS: $selectedSymptoms")
 
                         startActivity(intent)
                         finish()

@@ -11,7 +11,6 @@ import org.json.JSONObject
 
 class ReportsActivity : AppCompatActivity() {
 
-    // 🔥 Track last opened item
     private var lastExpanded: LinearLayout? = null
     private var lastImage: ImageView? = null
 
@@ -85,7 +84,6 @@ class ReportsActivity : AppCompatActivity() {
                 symptomsLv.addView(tv)
             }
 
-            // 🔹 Causes
             val causeArr = getSafeArray(report, "causes")
             for (j in 0 until causeArr.length()) {
                 val tv = TextView(this)
@@ -94,7 +92,6 @@ class ReportsActivity : AppCompatActivity() {
                 causeLv.addView(tv)
             }
 
-            // 🔹 Actions
             val actArr = getSafeArray(report, "actions")
             for (j in 0 until actArr.length()) {
                 val tv = TextView(this)

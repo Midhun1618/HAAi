@@ -54,12 +54,10 @@ class LoginActivity : AppCompatActivity() {
         val maleBtn = findViewById<TextView>(R.id.maleBtn)
         val femaleBtn = findViewById<TextView>(R.id.femaleBtn)
 
-        // 🔐 Google Login
         googleBtn.setOnClickListener {
             signInWithGoogle()
         }
 
-        // 🎯 Gender selection
         maleBtn.setOnClickListener {
             selectedGender = "Male"
 
@@ -84,7 +82,6 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "Female selected", Toast.LENGTH_SHORT).show()
         }
 
-        // 👉 Save profile
         loginBtn.setOnClickListener {
             val name = nameEt.text.toString().trim()
             val dob = dobEt.text.toString().trim()
@@ -137,7 +134,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    // 🔐 Google Sign-In
     private fun signInWithGoogle() {
 
         val credentialManager = CredentialManager.create(this)
@@ -174,7 +170,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    // 🔥 Firebase Auth
     private fun firebaseAuthWithGoogle(credential: GoogleIdTokenCredential) {
 
         val firebaseCredential =
@@ -185,13 +180,10 @@ class LoginActivity : AppCompatActivity() {
 
                 val user = auth.currentUser
 
-                // Show UI after login
                 googleBtn.visibility = View.GONE
                 loginDetailLL.visibility = View.VISIBLE
 
                 emailTv.text = user?.email ?: "No Email"
-
-                Toast.makeText(this, "Google Login Success ✅", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Auth Failed ❌", Toast.LENGTH_SHORT).show()
@@ -216,7 +208,7 @@ class LoginActivity : AppCompatActivity() {
 
         ref.setValue(userMap)
             .addOnSuccessListener {
-                Toast.makeText(this, "Profile Saved ✅", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Profile Saved", Toast.LENGTH_SHORT).show()
 
                 startActivity(Intent(this, OnboardingActivity::class.java))
                 finish()

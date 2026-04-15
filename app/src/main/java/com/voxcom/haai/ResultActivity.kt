@@ -70,7 +70,7 @@ class ResultActivity : AppCompatActivity() {
                 val actionsArray = jsonObject.optJSONArray("actions") ?: JSONArray()
 
                 diseaseTv.text = disease
-                confidenceTv.text = "Confidence: $confidence"
+                confidenceTv.text = "Possibility: $confidence"
 
                 causeContainer.removeAllViews()
                 actionContainer.removeAllViews()
@@ -114,7 +114,6 @@ class ResultActivity : AppCompatActivity() {
             Toast.makeText(this, "Error parsing result", Toast.LENGTH_SHORT).show()
         }
 
-        // 🔁 Check again
         checkAgainBtn.setOnClickListener {
             startActivity(Intent(this, SymptomsActivity::class.java))
             finish()
@@ -125,7 +124,6 @@ class ResultActivity : AppCompatActivity() {
 
             val report = JSONObject()
 
-            // ✅ Convert to JSONArray (IMPORTANT FIX)
             val symptomsArray = JSONArray()
             symptoms.forEach { symptomsArray.put(it) }
 

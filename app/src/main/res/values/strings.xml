@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">HealthTipsApp</string>
-    <string name="default_web_client_id">797006781831-p1lr9r8uj106t1028tjkej92ogea8947.apps.googleusercontent.co</string>
+    <string name="default_web_client_id">797006781831-nsboj0dtd2ppk5bjrlbsci0oriaugred.apps.googleusercontent.com</string>
     <string name="map_api">ads</string>
     <string-array name="health_tips">
         <!-- Nutrition -->

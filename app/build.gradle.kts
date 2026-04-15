@@ -12,8 +12,8 @@ android {
         applicationId = "com.voxcom.haai"
         minSdk = 24
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 3
+        versionName = "1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -55,12 +55,10 @@ dependencies {
     implementation(libs.play.services.maps)
     implementation(libs.play.services.location)
 
-    // 🔥 Firebase BOM
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
 
-    // Google Sign-In
     implementation(libs.credentials)
     implementation(libs.googleid)
 

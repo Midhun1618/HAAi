@@ -35,9 +35,7 @@ class EmergencyActivity : AppCompatActivity() {
 
         val btnHospital = findViewById<Button>(R.id.btnHospital)
         val btnCall = findViewById<Button>(R.id.btnCall)
-        val btnGuidelines = findViewById<Button>(R.id.btnGuidelines)
 
-        webView = findViewById(R.id.webView)
         mapWebView = findViewById(R.id.mapWebView)
         placeholder = findViewById(R.id.map_placeholder)
 
@@ -57,15 +55,13 @@ class EmergencyActivity : AppCompatActivity() {
         }
 
         btnCall.setOnClickListener {
-            // ACTION_DIAL is safer and doesn't require the CALL_PHONE permission
             val intent = Intent(Intent.ACTION_DIAL)
             intent.data = Uri.parse("tel:112")
             startActivity(intent)
         }
 
-        btnGuidelines.setOnClickListener {
-            openMainWebView("https://www.mohfw.gov.in/")
-        }
+
+
     }
 
     private fun setupBackNavigation() {
@@ -239,11 +235,6 @@ class EmergencyActivity : AppCompatActivity() {
         }, Looper.getMainLooper())
     }
 
-    private fun openMainWebView(url: String) {
-        mapWebView.visibility = View.GONE
-        webView.visibility = View.VISIBLE
-        webView.loadUrl(url)
-    }
 
     private fun checkLocationPermission() {
         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_CODE)

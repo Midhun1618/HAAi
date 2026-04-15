@@ -43,8 +43,8 @@
         <LinearLayout
             android:id="@+id/loginDetailLL"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:visibility="gone"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/emailTv"
@@ -84,25 +84,23 @@
                 <TextView
                     android:id="@+id/maleBtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="24dp"
+                    android:layout_height="match_parent"
+                    android:textSize="18sp"
                     android:textAlignment="center"
                     android:paddingHorizontal="14dp"
-                    android:paddingVertical="5dp"
-                    android:text="♂"
-                    android:textStyle="bold"
+                    android:paddingVertical="8dp"
+                    android:text="Male"
                     android:background="@drawable/curver_outliner"/>
                 <TextView
                     android:id="@+id/femaleBtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="24dp"
+                    android:layout_height="match_parent"
+                    android:textSize="18sp"
                     android:textAlignment="center"
                     android:paddingHorizontal="16dp"
-                    android:paddingVertical="5dp"
+                    android:paddingVertical="8dp"
                     android:layout_marginLeft="2dp"
-                    android:text="♀"
-                    android:textStyle="bold"
+                    android:text="Female"
                     android:background="@drawable/curver_outliner"/>
 
             </LinearLayout>

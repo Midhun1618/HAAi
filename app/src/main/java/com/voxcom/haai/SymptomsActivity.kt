@@ -75,8 +75,8 @@ class SymptomsActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val age = ageEt.text.toString()
-            val duration = durationEt.text.toString()
+            val age = ageEt.text.toString().trim()
+            val duration = durationEt.text.toString().trim()
             val extraInfo = additionalInput.text.toString()
             val gender = user?.gender
             val name = user?.name
@@ -144,7 +144,7 @@ class SymptomsActivity : AppCompatActivity() {
 
             age
         } catch (e: Exception) {
-            0 // fallback if parsing fails
+            0
         }
     }
 }

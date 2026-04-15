@@ -87,10 +87,10 @@ class LoginActivity : AppCompatActivity() {
             val dob = dobEt.text.toString().trim()
             val gender = selectedGender
 
-            if (name.isEmpty() || dob.isEmpty()|| gender.isEmpty()) {
+            if (name.isEmpty() || dob.isEmpty() || gender.isEmpty()) {
                 Toast.makeText(this, "Fill all details 😅", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
-            }else{
+            } else {
                 val user = User(
                     name = name,
                     email = auth.currentUser?.email ?: "",
@@ -99,8 +99,6 @@ class LoginActivity : AppCompatActivity() {
                 )
                 UserManager.saveUser(this, user)
                 saveUserToFirebase(name, dob, gender)
-                startActivity(Intent(this, OnboardingActivity::class.java))
-                finish()
             }
 
 
@@ -190,7 +188,6 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
-    // 💾 Save user data
     private fun saveUserToFirebase(name: String, dob: String, gender: String) {
 
         val uid = auth.currentUser?.uid ?: return
@@ -214,7 +211,7 @@ class LoginActivity : AppCompatActivity() {
                 finish()
             }
             .addOnFailureListener {
-                Toast.makeText(this, "Failed to save ❌", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Failed to save", Toast.LENGTH_SHORT).show()
             }
     }
 }

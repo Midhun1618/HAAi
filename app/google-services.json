@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "797006781831",
+    "firebase_url": "https://haai-2026-default-rtdb.firebaseio.com",
     "project_id": "haai-2026",
     "storage_bucket": "haai-2026.firebasestorage.app"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "797006781831-6pkv8junsqhd52atmq2a2lc07ir7m0l7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.voxcom.haai",
+            "certificate_hash": "51acd7560aa298edae585259fcfcc8d9517b129f"
+          }
+        },
         {
           "client_id": "797006781831-p1lr9r8uj106t1028tjkej92ogea8947.apps.googleusercontent.com",
           "client_type": 1,

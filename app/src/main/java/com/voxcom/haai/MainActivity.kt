@@ -3,16 +3,19 @@ package com.voxcom.haai
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.health.connect.datatypes.units.Temperature
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -25,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var usernameTv : TextView
     private lateinit var textView: TextView
     private lateinit var button: ImageView
+    private lateinit var logout: ImageView
     private lateinit var texts: Array<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         val SymptomsBtn = findViewById<CardView>(R.id.card1)
         val EmergencyBtn = findViewById<CardView>(R.id.card4)
         val ReportsBtn = findViewById<CardView>(R.id.card3)
+        val govtWebBtn = findViewById<CardView>(R.id.card2)
 
         greet = findViewById(R.id.greetingTv)
         mailTv = findViewById(R.id.emailTv)
@@ -42,6 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         textView = findViewById(R.id.tipTv)
         button = findViewById(R.id.buttonGenerate)
+        logout = findViewById(R.id.btnLogout)
 
         texts = resources.getStringArray(R.array.health_tips)
 
@@ -86,6 +92,48 @@ class MainActivity : AppCompatActivity() {
         }
         ReportsBtn.setOnClickListener {
             startActivity(Intent(this, ReportsActivity::class.java))
+        }
+        govtWebBtn.setOnClickListener {
+            openHealthWebsiteWithConfirmation()
+        }
+        logout.setOnClickListener {
+            logoutWithConfirmation()
+        }
+
+    }
+    private fun logoutWithConfirmation() {
+        AlertDialog.Builder(this)
+            .setTitle("Logout")
+            .setMessage("Are you sure you want to log out?")
+            .setPositiveButton("Yes") { _, _ ->
+                FirebaseAuth.getInstance().signOut()
+                UserManager.clearUser(this)
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                finish()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+    private fun openHealthWebsiteWithConfirmation() {
+        AlertDialog.Builder(this)
+            .setTitle("Open Website")
+            .setMessage("This will open the official health website in your browser.")
+            .setPositiveButton("Open") { _, _ ->
+                openHealthWebsite()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+    private fun openHealthWebsite() {
+        val url = "https://www.mohfw.gov.in/"
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, "No browser found to open the link", Toast.LENGTH_SHORT).show()
         }
     }
     fun getAgeFromDob(dob: String): Int {

@@ -1,6 +1,9 @@
 package com.voxcom.haai
+
 data class OnboardingData(
-    val image: Int,
+    val icon: Int,
     val title: String,
-    val desc: String
+    val description: String,
+    val banner: Int,
+    val isDisclaimer: Boolean = false
 )

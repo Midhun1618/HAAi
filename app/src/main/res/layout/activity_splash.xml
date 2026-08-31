@@ -33,6 +33,8 @@
             android:layout_height="wrap_content"
             android:text="Public Health AI Assistant"
             android:textSize="20sp"
+            android:fontFamily="@font/nunito_normal"
+            android:textFontWeight="800"
             android:textStyle="bold"
             android:textColor="@android:color/white"
             android:layout_marginTop="12dp"/>
@@ -42,6 +44,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="AI-powered health awareness"
+            android:fontFamily="@font/nunito_normal"
+            android:textFontWeight="300"
             android:textSize="14sp"
             android:textColor="@android:color/white"
             android:layout_marginTop="4dp"/>

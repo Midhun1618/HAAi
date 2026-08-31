@@ -20,7 +20,9 @@
             android:exported="false" />
         <activity
             android:name=".EmergencyActivity"
-            android:exported="false" />
+            android:exported="false" >
+        </activity>
+
         <activity
             android:name=".ResultActivity"
             android:exported="false" />
@@ -35,7 +37,10 @@
             android:exported="false" />
         <activity
             android:name=".OnboardingActivity"
-            android:exported="false" />
+            android:exported="false" >
+
+        </activity>
+
         <activity
             android:name=".SplashActivity"
             android:exported="true">
@@ -44,6 +49,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
 
 
         </activity>

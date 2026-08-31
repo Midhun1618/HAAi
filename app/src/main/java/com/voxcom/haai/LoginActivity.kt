@@ -67,7 +67,6 @@ class LoginActivity : AppCompatActivity() {
             femaleBtn.setTextColor(getColor(R.color.text_secondary))
             femaleBtn.setBackgroundResource(R.drawable.curver_outliner)
 
-            Toast.makeText(this, "Male selected", Toast.LENGTH_SHORT).show()
         }
 
         femaleBtn.setOnClickListener {
@@ -79,7 +78,6 @@ class LoginActivity : AppCompatActivity() {
             maleBtn.setTextColor(getColor(R.color.text_secondary))
             maleBtn.setBackgroundResource(R.drawable.curver_outliner)
 
-            Toast.makeText(this, "Female selected", Toast.LENGTH_SHORT).show()
         }
 
         loginBtn.setOnClickListener {
@@ -90,7 +88,12 @@ class LoginActivity : AppCompatActivity() {
             if (name.isEmpty() || dob.isEmpty() || gender.isEmpty()) {
                 Toast.makeText(this, "Fill all details 😅", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
-            } else {
+            }
+            if (!isUserAdult(dob)) {
+                Toast.makeText(this, "You must be at least 18 years old", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+            else {
                 val user = User(
                     name = name,
                     email = auth.currentUser?.email ?: "",
@@ -205,7 +208,6 @@ class LoginActivity : AppCompatActivity() {
 
         ref.setValue(userMap)
             .addOnSuccessListener {
-                Toast.makeText(this, "Profile Saved", Toast.LENGTH_SHORT).show()
 
                 startActivity(Intent(this, OnboardingActivity::class.java))
                 finish()
@@ -214,4 +216,29 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Failed to save", Toast.LENGTH_SHORT).show()
             }
     }
+    private fun isUserAdult(dob: String): Boolean {
+        return try {
+            val parts = dob.split("/")
+            val day = parts[0].toInt()
+            val month = parts[1].toInt() - 1
+            val year = parts[2].toInt()
+
+            val dobCalendar = Calendar.getInstance()
+            dobCalendar.set(year, month, day)
+
+            val today = Calendar.getInstance()
+
+            var age = today.get(Calendar.YEAR) - dobCalendar.get(Calendar.YEAR)
+
+            if (today.get(Calendar.DAY_OF_YEAR) < dobCalendar.get(Calendar.DAY_OF_YEAR)) {
+                age--
+            }
+
+            age >= 18
+        } catch (e: Exception) {
+            false
+        }
+
+    }
+
 }

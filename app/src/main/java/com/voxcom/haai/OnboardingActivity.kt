@@ -2,6 +2,7 @@ package com.voxcom.haai
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -10,85 +11,264 @@ import androidx.viewpager2.widget.ViewPager2
 class OnboardingActivity : AppCompatActivity() {
 
     private lateinit var viewPager: ViewPager2
+
     private lateinit var nextBtn: Button
+
+    private lateinit var skipBtn: View
+
+    private lateinit var indicators: List<View>
+
+    private lateinit var adapter: OnboardingAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_onboarding)
 
+
         viewPager = findViewById(R.id.viewPager)
+
         nextBtn = findViewById(R.id.nextBtn)
 
-        val list = listOf(
-            OnboardingData(
-                R.drawable.ic_main,
-                "Understand Your Symptoms",
-                "This app helps you better understand the symptoms you experience in your daily life. " +
-                        "You can explore common health conditions based on what you feel. " +
-                        "It provides simple and easy-to-understand explanations for various symptoms. " +
-                        "Instead of guessing, you get structured information that guides your awareness. " +
-                        "The goal is to make health knowledge accessible to everyone. " +
-                        "You can learn how symptoms may be connected to lifestyle or habits. " +
-                        "This helps you stay more aware of your body and its signals. " +
-                        "Early awareness can help you make better decisions about your health. " +
-                        "It empowers you with knowledge before taking further action."
-            ),
+        skipBtn = findViewById(R.id.skipBtn)
 
-            OnboardingData(
-                R.drawable.ic_main,
-                "AI Powered Health Insights",
-                "Our app uses artificial intelligence to analyze the information you provide. " +
-                        "It gives you smart and relevant health insights based on your symptoms. " +
-                        "The AI is designed to simplify complex medical information into easy guidance. " +
-                        "You receive suggestions that can help you understand possible causes. " +
-                        "It continuously improves to provide better and more accurate responses. " +
-                        "The system focuses on awareness, not diagnosis. " +
-                        "It helps you think more clearly about your health situation. " +
-                        "You can use these insights to prepare before consulting a professional. " +
-                        "This makes your healthcare journey more informed and efficient."
-            ),
 
-            OnboardingData(
-                R.drawable.ic_main,
-                "Disclaimer",
-                "This application is designed only for general health awareness and educational purposes. " +
-                        "It does not provide medical advice, diagnosis, or treatment. " +
-                        "The information shown is generated using AI and may not always be accurate. " +
-                        "You should not rely on this app as a substitute for professional medical consultation. " +
-                        "Always consult a qualified doctor or healthcare provider for serious concerns. " +
-                        "In case of emergency, seek immediate medical help. " +
-                        "Using this app means you understand its limitations. " +
-                        "The developers are not responsible for any decisions made based on this information. " +
-                        "Please use this tool responsibly and prioritize professional healthcare."
-            )
+        indicators = listOf(
+
+            findViewById(R.id.indicator1),
+
+            findViewById(R.id.indicator2),
+
+            findViewById(R.id.indicator3)
+
         )
 
-        val adapter = OnboardingAdapter(list)
+
+        val list = listOf(
+
+            OnboardingData(
+
+                icon = R.drawable.ic_main,
+
+                title = "Understand Your Symptoms",
+
+                description =
+                    "Select the symptoms you're experiencing and get structured health awareness insights to better understand what your body may be telling you.",
+
+                banner = R.drawable.banner1
+
+            ),
+
+
+            OnboardingData(
+
+                icon = R.drawable.ic_main,
+
+                title = "AI-Powered Health Insights",
+
+                description =
+                    "HAAi analyzes your selected symptoms and provides possible health insights, helpful guidance, and suggested next steps.",
+
+                banner = R.drawable.banner2
+
+            ),
+
+
+            OnboardingData(
+
+                icon = R.drawable.ic_main,
+
+                title = "Your Health, Used Responsibly",
+
+                description =
+                    "HAAi provides general health awareness information and is not a replacement for professional medical advice, diagnosis, or emergency care.",
+
+                banner = R.drawable.banner3,
+
+                isDisclaimer = true
+
+            )
+
+        )
+
+
+        adapter = OnboardingAdapter(list) { accepted ->
+
+            updateDisclaimerButton(accepted)
+
+        }
+
+
         viewPager.adapter = adapter
 
+
+        updateIndicators(0)
+
+
+        // Next Button
+
         nextBtn.setOnClickListener {
-            if (viewPager.currentItem < list.size - 1) {
-                viewPager.currentItem += 1
+
+            val currentPosition = viewPager.currentItem
+
+
+            if (currentPosition < list.size - 1) {
+
+                viewPager.currentItem = currentPosition + 1
+
             } else {
 
                 if (!adapter.isDisclaimerAccepted) {
-                    Toast.makeText(this, "Please accept the disclaimer to continue", Toast.LENGTH_SHORT).show()
+
+                    Toast.makeText(
+                        this,
+                        "Please accept the disclaimer to continue",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
                     return@setOnClickListener
                 }
 
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
+
+                completeOnboarding()
             }
+
         }
 
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                if (position == list.size - 1) {
-                    nextBtn.text = "Continue"
-                } else {
-                    nextBtn.text = "Next"
+
+        // Skip Button
+
+        skipBtn.setOnClickListener {
+
+            viewPager.currentItem = list.size - 1
+
+        }
+
+
+        // Page Change
+
+        viewPager.registerOnPageChangeCallback(
+
+            object : ViewPager2.OnPageChangeCallback() {
+
+                override fun onPageSelected(position: Int) {
+
+                    updateIndicators(position)
+
+
+                    if (position == list.size - 1) {
+
+                        nextBtn.text = "Get Started"
+
+                        skipBtn.visibility = View.GONE
+
+                        updateDisclaimerButton(
+                            adapter.isDisclaimerAccepted
+                        )
+
+                    } else {
+
+                        nextBtn.text = "Continue"
+
+                        nextBtn.isEnabled = true
+
+                        nextBtn.alpha = 1f
+
+                        skipBtn.visibility = View.VISIBLE
+                    }
+
                 }
+
             }
-        })
+
+        )
+
+    }
+
+
+    private fun updateIndicators(position: Int) {
+
+        indicators.forEachIndexed { index, indicator ->
+
+            if (index == position) {
+
+                indicator.setBackgroundResource(
+                    R.drawable.indicator_active
+                )
+
+                indicator.layoutParams.width =
+                    dpToPx(22)
+
+                indicator.layoutParams.height =
+                    dpToPx(8)
+
+            } else {
+
+                indicator.setBackgroundResource(
+                    R.drawable.indicator_inactive
+                )
+
+                indicator.layoutParams.width =
+                    dpToPx(8)
+
+                indicator.layoutParams.height =
+                    dpToPx(8)
+            }
+
+            indicator.requestLayout()
+        }
+    }
+
+
+    private fun updateDisclaimerButton(
+        accepted: Boolean
+    ) {
+
+        if (viewPager.currentItem == 2) {
+
+            nextBtn.isEnabled = accepted
+
+            nextBtn.alpha =
+                if (accepted) 1f else 0.5f
+        }
+    }
+
+
+    private fun completeOnboarding() {
+
+        val preferences = getSharedPreferences(
+            "HAAiPrefs",
+            MODE_PRIVATE
+        )
+
+
+        preferences.edit()
+            .putBoolean(
+                "onboarding_completed",
+                true
+            )
+            .apply()
+
+
+        startActivity(
+
+            Intent(
+                this,
+                MainActivity::class.java
+            )
+
+        )
+
+
+        finish()
+    }
+
+
+    private fun dpToPx(dp: Int): Int {
+
+        return (
+                dp * resources.displayMetrics.density
+                ).toInt()
     }
 }

@@ -3,45 +3,92 @@ package com.voxcom.haai
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.CheckBox
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class OnboardingAdapter(private val list: List<OnboardingData>) :
-    RecyclerView.Adapter<OnboardingAdapter.ViewHolder>() {
+class OnboardingAdapter(
+    private val items: List<OnboardingData>,
+    private val onDisclaimerChanged: (Boolean) -> Unit
+) : RecyclerView.Adapter<OnboardingAdapter.OnboardingViewHolder>() {
 
     var isDisclaimerAccepted = false
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val image: ImageView = view.findViewById(R.id.image)
-        val title: TextView = view.findViewById(R.id.title)
-        val desc: TextView = view.findViewById(R.id.desc)
-        val checkBox: CheckBox = view.findViewById(R.id.checkBox)
-    }
+    inner class OnboardingViewHolder(itemView: View) :
+        RecyclerView.ViewHolder(itemView) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_onboarding, parent, false)
-        return ViewHolder(view)
-    }
+        private val banner: ImageView =
+            itemView.findViewById(R.id.banner)
 
-    override fun getItemCount(): Int = list.size
+        private val title: TextView =
+            itemView.findViewById(R.id.title)
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = list[position]
+        private val description: TextView =
+            itemView.findViewById(R.id.desc)
 
-        holder.image.setImageResource(item.image)
-        holder.title.text = item.title
-        holder.desc.text = item.desc
+        private val checkBox: CheckBox =
+            itemView.findViewById(R.id.checkBox)
 
-        if (position == 2) {
-            holder.checkBox.visibility = View.VISIBLE
 
-            holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
-                isDisclaimerAccepted = isChecked
+        fun bind(item: OnboardingData) {
+
+            banner.setImageResource(item.banner)
+
+            title.text = item.title
+
+            description.text = item.description
+
+
+            if (item.isDisclaimer) {
+
+                checkBox.visibility = View.VISIBLE
+
+                checkBox.setOnCheckedChangeListener(null)
+
+                checkBox.isChecked = isDisclaimerAccepted
+
+                checkBox.setOnCheckedChangeListener { _, isChecked ->
+
+                    isDisclaimerAccepted = isChecked
+
+                    onDisclaimerChanged(isChecked)
+                }
+
+            } else {
+
+                checkBox.visibility = View.GONE
             }
-
-        } else {
-            holder.checkBox.visibility = View.GONE
         }
+    }
+
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): OnboardingViewHolder {
+
+        val view = LayoutInflater.from(parent.context)
+            .inflate(
+                R.layout.item_onboarding,
+                parent,
+                false
+            )
+
+        return OnboardingViewHolder(view)
+    }
+
+
+    override fun onBindViewHolder(
+        holder: OnboardingViewHolder,
+        position: Int
+    ) {
+
+        holder.bind(items[position])
+    }
+
+
+    override fun getItemCount(): Int {
+        return items.size
     }
 }

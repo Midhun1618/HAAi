@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.voxcom.haai.BuildConfig
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaType
@@ -18,7 +19,6 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
-import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 import java.util.concurrent.TimeUnit
@@ -45,7 +45,6 @@ class AiProcessingActivity : AppCompatActivity() {
             handler.postDelayed(this, delay)
         }
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ai_processing)
@@ -70,7 +69,6 @@ class AiProcessingActivity : AppCompatActivity() {
         }
 
         callAI(prompt,name, age, duration, symptoms, extraInfo)
-
 
         handler.post(runnable)
     }
@@ -107,6 +105,13 @@ class AiProcessingActivity : AppCompatActivity() {
         selectedSymptoms: ArrayList<String>,
         extraInfo: String
     ) {
+        if (BuildConfig.BASE_URL.isEmpty()) {
+            runOnUiThread {
+                loaderImg.clearAnimation()
+                Toast.makeText(this, "Base URL not configured", Toast.LENGTH_LONG).show()
+            }
+            return
+        }
 
         val client = OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
@@ -115,16 +120,16 @@ class AiProcessingActivity : AppCompatActivity() {
             .retryOnConnectionFailure(true)
             .build()
 
-        // ✅ SIMPLE REQUEST (send only prompt)
         val jsonObject = JSONObject().apply {
             put("prompt", prompt)
         }
 
         val request = Request.Builder()
-            .url("https://call-gemi.onrender.com/ask") // ✅ backend
+            .url("${BuildConfig.BASE_URL.trimEnd('/')}/ask")
             .addHeader("Content-Type", "application/json")
             .post(jsonObject.toString().toRequestBody("application/json".toMediaType()))
             .build()
+
 
         client.newCall(request).enqueue(object : Callback {
 
@@ -171,7 +176,6 @@ class AiProcessingActivity : AppCompatActivity() {
                         return
                     }
 
-                    // ✅ IMPORTANT: convert BACK to STRING JSON (same as before)
                     val cleanText = json.toString()
 
                     runOnUiThread {

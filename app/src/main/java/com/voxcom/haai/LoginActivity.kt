@@ -3,13 +3,16 @@ package com.voxcom.haai
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.animation.DecelerateInterpolator
 import android.widget.Button
 import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import android.view.View
 import androidx.lifecycle.lifecycleScope
 
 import androidx.credentials.CredentialManager
@@ -29,12 +32,21 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
 
-    private lateinit var googleBtn: TextView
+    private lateinit var headerLL: LinearLayout
+    private lateinit var cardContainer: androidx.constraintlayout.widget.ConstraintLayout
+
+    private lateinit var googleBtnWrap: FrameLayout
+    private lateinit var googleBtnContent: LinearLayout
+    private lateinit var googleLoadingPb: ProgressBar
+
     private lateinit var loginDetailLL: LinearLayout
     private lateinit var emailTv: TextView
     private lateinit var nameEt: EditText
     private lateinit var dobEt: TextView
+    private lateinit var maleBtn: TextView
+    private lateinit var femaleBtn: TextView
     private lateinit var loginBtn: Button
+    private lateinit var loginLoadingPb: ProgressBar
 
     private var selectedGender = ""
 
@@ -44,41 +56,30 @@ class LoginActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        googleBtn = findViewById(R.id.loginWgooleBtn)
+        headerLL = findViewById(R.id.headerLL)
+        cardContainer = findViewById(R.id.cardContainer)
+
+        googleBtnWrap = findViewById(R.id.googleBtnWrap)
+        googleBtnContent = findViewById(R.id.googleBtnContent)
+        googleLoadingPb = findViewById(R.id.googleLoadingPb)
+
         loginDetailLL = findViewById(R.id.loginDetailLL)
         emailTv = findViewById(R.id.emailTv)
         nameEt = findViewById(R.id.nameEt)
         dobEt = findViewById(R.id.dobInput)
+        maleBtn = findViewById(R.id.maleBtn)
+        femaleBtn = findViewById(R.id.femaleBtn)
         loginBtn = findViewById(R.id.nextpage)
+        loginLoadingPb = findViewById(R.id.loginLoadingPb)
 
-        val maleBtn = findViewById<TextView>(R.id.maleBtn)
-        val femaleBtn = findViewById<TextView>(R.id.femaleBtn)
+        animateEntrance()
 
-        googleBtn.setOnClickListener {
+        googleBtnWrap.setOnClickListener {
             signInWithGoogle()
         }
 
-        maleBtn.setOnClickListener {
-            selectedGender = "Male"
-
-            maleBtn.setTextColor(getColor(R.color.text_white))
-            maleBtn.setBackgroundResource(R.drawable.blue_bubble)
-
-            femaleBtn.setTextColor(getColor(R.color.text_secondary))
-            femaleBtn.setBackgroundResource(R.drawable.curver_outliner)
-
-        }
-
-        femaleBtn.setOnClickListener {
-            selectedGender = "Female"
-
-            femaleBtn.setTextColor(getColor(R.color.text_white))
-            femaleBtn.setBackgroundResource(R.drawable.blue_bubble)
-
-            maleBtn.setTextColor(getColor(R.color.text_secondary))
-            maleBtn.setBackgroundResource(R.drawable.curver_outliner)
-
-        }
+        maleBtn.setOnClickListener { selectGender("Male") }
+        femaleBtn.setOnClickListener { selectGender("Female") }
 
         loginBtn.setOnClickListener {
             val name = nameEt.text.toString().trim()
@@ -86,31 +87,28 @@ class LoginActivity : AppCompatActivity() {
             val gender = selectedGender
 
             if (name.isEmpty() || dob.isEmpty() || gender.isEmpty()) {
-                Toast.makeText(this, "Fill all details 😅", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Fill all details", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             if (!isUserAdult(dob)) {
                 Toast.makeText(this, "You must be at least 18 years old", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
-            else {
-                val user = User(
-                    name = name,
-                    email = auth.currentUser?.email ?: "",
-                    dob = dob,
-                    gender = gender
-                )
-                UserManager.saveUser(this, user)
-                saveUserToFirebase(name, dob, gender)
-            }
 
+            val user = User(
+                name = name,
+                email = auth.currentUser?.email ?: "",
+                dob = dob,
+                gender = gender
+            )
+            UserManager.saveUser(this, user)
 
+            setLoginLoading(true)
+            saveUserToFirebase(name, dob, gender)
         }
 
         dobEt.setOnClickListener {
-
             val calendar = Calendar.getInstance()
-
             val year = calendar.get(Calendar.YEAR)
             val month = calendar.get(Calendar.MONTH)
             val day = calendar.get(Calendar.DAY_OF_MONTH)
@@ -118,24 +116,94 @@ class LoginActivity : AppCompatActivity() {
             val datePicker = DatePickerDialog(
                 this,
                 { _, selectedYear, selectedMonth, selectedDay ->
-
-                    val formattedDate =
-                        "$selectedDay/${selectedMonth + 1}/$selectedYear"
-
-                    dobEt.setText(formattedDate)
+                    val formattedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+                    dobEt.text = formattedDate
                 },
-                year,
-                month,
-                day
+                year, month, day
             )
 
             datePicker.datePicker.maxDate = System.currentTimeMillis()
-
             datePicker.show()
         }
     }
 
+    /** Fade + slide up the header and card on screen open. */
+    private fun animateEntrance() {
+        headerLL.animate()
+            .alpha(1f)
+            .setDuration(400)
+            .setInterpolator(DecelerateInterpolator())
+            .start()
+
+        cardContainer.animate()
+            .alpha(1f)
+            .translationY(0f)
+            .setStartDelay(150)
+            .setDuration(450)
+            .setInterpolator(DecelerateInterpolator())
+            .start()
+    }
+
+    private fun selectGender(gender: String) {
+        selectedGender = gender
+
+        val (activeBtn, inactiveBtn) = if (gender == "Male") maleBtn to femaleBtn else femaleBtn to maleBtn
+
+        activeBtn.setTextColor(getColor(R.color.text_white))
+        activeBtn.setBackgroundResource(R.drawable.blue_bubble)
+        activeBtn.animate().scaleX(1f).scaleY(1f).setDuration(150).start()
+
+        inactiveBtn.setTextColor(getColor(R.color.text_secondary))
+        inactiveBtn.setBackgroundResource(R.drawable.curver_outliner)
+
+        // small bounce feedback on the tapped chip
+        activeBtn.scaleX = 0.9f
+        activeBtn.scaleY = 0.9f
+        activeBtn.animate().scaleX(1f).scaleY(1f).setDuration(150).start()
+    }
+
+    /** Toggles the Google button between its normal state and a spinner. */
+    private fun setGoogleLoading(loading: Boolean) {
+        googleBtnWrap.isEnabled = !loading
+        googleBtnContent.visibility = if (loading) View.INVISIBLE else View.VISIBLE
+        googleLoadingPb.visibility = if (loading) View.VISIBLE else View.GONE
+    }
+
+    /** Toggles the LOGIN button between its normal state and a spinner. */
+    private fun setLoginLoading(loading: Boolean) {
+        loginBtn.isEnabled = !loading
+        loginBtn.text = if (loading) "" else "LOGIN"
+        loginLoadingPb.visibility = if (loading) View.VISIBLE else View.GONE
+        nameEt.isEnabled = !loading
+        dobEt.isEnabled = !loading
+        maleBtn.isEnabled = !loading
+        femaleBtn.isEnabled = !loading
+    }
+
+    /** Crossfades from the Google button into the detail form. */
+    private fun revealLoginDetails() {
+        googleBtnWrap.animate()
+            .alpha(0f)
+            .setDuration(200)
+            .withEndAction {
+                googleBtnWrap.visibility = View.GONE
+
+                loginDetailLL.visibility = View.VISIBLE
+                loginDetailLL.alpha = 0f
+                loginDetailLL.translationY = 30f
+
+                loginDetailLL.animate()
+                    .alpha(1f)
+                    .translationY(0f)
+                    .setDuration(350)
+                    .setInterpolator(DecelerateInterpolator())
+                    .start()
+            }
+            .start()
+    }
+
     private fun signInWithGoogle() {
+        setGoogleLoading(true)
 
         val credentialManager = CredentialManager.create(this)
 
@@ -151,49 +219,49 @@ class LoginActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 val result = credentialManager.getCredential(this@LoginActivity, request)
-
                 val credential = result.credential
 
                 if (credential is CustomCredential &&
                     credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
                 ) {
-
-                    val googleCredential =
-                        GoogleIdTokenCredential.createFrom(credential.data)
-
+                    val googleCredential = GoogleIdTokenCredential.createFrom(credential.data)
                     firebaseAuthWithGoogle(googleCredential)
-
+                } else {
+                    setGoogleLoading(false)
                 }
 
             } catch (e: Exception) {
+                setGoogleLoading(false)
                 Toast.makeText(this@LoginActivity, "Login cancelled", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun firebaseAuthWithGoogle(credential: GoogleIdTokenCredential) {
-
-        val firebaseCredential =
-            GoogleAuthProvider.getCredential(credential.idToken, null)
+        val firebaseCredential = GoogleAuthProvider.getCredential(credential.idToken, null)
 
         auth.signInWithCredential(firebaseCredential)
             .addOnSuccessListener {
-
                 val user = auth.currentUser
-
-                googleBtn.visibility = View.GONE
-                loginDetailLL.visibility = View.VISIBLE
-
                 emailTv.text = user?.email ?: "No Email"
+
+                setGoogleLoading(false)
+                revealLoginDetails()
             }
             .addOnFailureListener {
-                Toast.makeText(this, "Auth Failed ❌", Toast.LENGTH_SHORT).show()
+                setGoogleLoading(false)
+                Toast.makeText(this, "Auth Failed", Toast.LENGTH_SHORT).show()
             }
     }
 
     private fun saveUserToFirebase(name: String, dob: String, gender: String) {
+        val uid = auth.currentUser?.uid
 
-        val uid = auth.currentUser?.uid ?: return
+        if (uid == null) {
+            setLoginLoading(false)
+            Toast.makeText(this, "Not signed in", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         val ref = FirebaseDatabase.getInstance()
             .getReference("users")
@@ -208,14 +276,15 @@ class LoginActivity : AppCompatActivity() {
 
         ref.setValue(userMap)
             .addOnSuccessListener {
-
                 startActivity(Intent(this, OnboardingActivity::class.java))
                 finish()
             }
             .addOnFailureListener {
+                setLoginLoading(false)
                 Toast.makeText(this, "Failed to save", Toast.LENGTH_SHORT).show()
             }
     }
+
     private fun isUserAdult(dob: String): Boolean {
         return try {
             val parts = dob.split("/")
@@ -227,7 +296,6 @@ class LoginActivity : AppCompatActivity() {
             dobCalendar.set(year, month, day)
 
             val today = Calendar.getInstance()
-
             var age = today.get(Calendar.YEAR) - dobCalendar.get(Calendar.YEAR)
 
             if (today.get(Calendar.DAY_OF_YEAR) < dobCalendar.get(Calendar.DAY_OF_YEAR)) {
@@ -238,7 +306,5 @@ class LoginActivity : AppCompatActivity() {
         } catch (e: Exception) {
             false
         }
-
     }
-
 }

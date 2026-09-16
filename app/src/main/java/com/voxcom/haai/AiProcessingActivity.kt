@@ -142,61 +142,158 @@ class AiProcessingActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call, response: Response) {
 
+                val responseCode = response.code
+                val responseBody = response.body?.string() ?: ""
+
+                Log.d("HAAI_API", "Response code: $responseCode")
+                Log.d("HAAI_API", "Response body: $responseBody")
+
                 if (!response.isSuccessful) {
                     runOnUiThread {
                         loaderImg.clearAnimation()
+
                         Toast.makeText(
                             this@AiProcessingActivity,
-                            "Server Error ${response.code}",
+                            "Server Error $responseCode",
                             Toast.LENGTH_LONG
                         ).show()
                     }
+
                     return
                 }
 
-                val body = response.body?.string() ?: ""
-
-                if (body.isEmpty()) {
+                if (responseBody.isEmpty()) {
                     runOnUiThread {
                         loaderImg.clearAnimation()
-                        Toast.makeText(this@AiProcessingActivity, "Empty response", Toast.LENGTH_LONG).show()
+
+                        Toast.makeText(
+                            this@AiProcessingActivity,
+                            "Empty response",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
+
                     return
                 }
 
                 try {
-                    val json = JSONObject(body)
+
+                    val json = JSONObject(responseBody)
+
+                    Log.d("HAAI_API", "Parsed JSON: $json")
 
                     if (json.has("error")) {
-                        val msg = json.getString("error")
+
+                        val msg = json.optString(
+                            "error",
+                            "AI service error"
+                        )
+
                         runOnUiThread {
                             loaderImg.clearAnimation()
-                            Toast.makeText(this@AiProcessingActivity, msg, Toast.LENGTH_LONG).show()
+
+                            Toast.makeText(
+                                this@AiProcessingActivity,
+                                msg,
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
+
+                        return
+                    }
+
+                    if (
+                        !json.has("disease") ||
+                        !json.has("confidence") ||
+                        !json.has("causes") ||
+                        !json.has("actions")
+                    ) {
+
+                        Log.e(
+                            "HAAI_API",
+                            "Invalid response format: $responseBody"
+                        )
+
+                        runOnUiThread {
+                            loaderImg.clearAnimation()
+
+                            Toast.makeText(
+                                this@AiProcessingActivity,
+                                "Invalid AI response",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+
                         return
                     }
 
                     val cleanText = json.toString()
 
+                    Log.d(
+                        "HAAI_API",
+                        "Sending valid result to ResultActivity"
+                    )
+
                     runOnUiThread {
+
                         loaderImg.clearAnimation()
 
-                        val intent = Intent(this@AiProcessingActivity, ResultActivity::class.java)
-                        intent.putExtra("RESULT", cleanText) // ✅ SAME STRUCTURE
-                        intent.putExtra("NAME", name)
-                        intent.putExtra("AGE", age)
-                        intent.putExtra("DURATION", duration)
-                        intent.putStringArrayListExtra("SYMPTOMS", ArrayList(selectedSymptoms))
-                        intent.putExtra("EXTRA", extraInfo)
+                        val intent = Intent(
+                            this@AiProcessingActivity,
+                            ResultActivity::class.java
+                        )
+
+                        intent.putExtra(
+                            "RESULT",
+                            cleanText
+                        )
+
+                        intent.putExtra(
+                            "NAME",
+                            name
+                        )
+
+                        intent.putExtra(
+                            "AGE",
+                            age
+                        )
+
+                        intent.putExtra(
+                            "DURATION",
+                            duration
+                        )
+
+                        intent.putStringArrayListExtra(
+                            "SYMPTOMS",
+                            ArrayList(selectedSymptoms)
+                        )
+
+                        intent.putExtra(
+                            "EXTRA",
+                            extraInfo
+                        )
 
                         startActivity(intent)
                         finish()
                     }
 
                 } catch (e: Exception) {
+
+                    Log.e(
+                        "HAAI_API",
+                        "JSON parsing failed",
+                        e
+                    )
+
                     runOnUiThread {
+
                         loaderImg.clearAnimation()
-                        Toast.makeText(this@AiProcessingActivity, "Parse Error", Toast.LENGTH_LONG).show()
+
+                        Toast.makeText(
+                            this@AiProcessingActivity,
+                            "Parse Error",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
             }

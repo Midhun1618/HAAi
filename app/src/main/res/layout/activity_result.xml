@@ -6,213 +6,329 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFF5F7FA"
     tools:context=".ResultActivity">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="28dp">
 
+            <!-- ===== Header ===== -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:fontFamily="@font/nunito_normal"
+                android:textFontWeight="800"
+                android:textColor="@color/primary_blue"
+                android:text="Health Awareness Result" />
 
+            <TextView
+                android:id="@+id/dateTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textSize="13sp"
+                android:textColor="@color/text_secondary"
+                android:text="01/01/2222" />
 
+            <!-- ===== Patient Info Card ===== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                android:background="@drawable/card_bg"
+                android:elevation="2dp"
+                android:padding="14dp"
+                android:weightSum="3">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="50dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:text="HEALTH AWARENESS RESULT"/>
-    <TextView
-        android:id="@+id/dateTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="8dp"
-        android:textSize="14sp"
-        android:text="01/01/2222"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:textSize="14sp"
-            android:text="Name :" />
-        <TextView
-            android:id="@+id/nameTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:text="NameOfUser" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:textSize="14sp"
-            android:text="Age :" />
-        <TextView
-            android:id="@+id/ageTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:text="00" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:textSize="14sp"
-            android:text="Duration :" />
-        <TextView
-            android:id="@+id/durationTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="16dp"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:text="00 Days" />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/text_secondary"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginHorizontal="16dp"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Predicted Category :"
-            android:textSize="14sp"
-            android:layout_marginStart="16dp"/>
-        <TextView
-            android:id="@+id/diseaseTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fever"
-            android:textSize="19sp"
-            android:textStyle="bold"
-            android:layout_marginHorizontal="16dp"/>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Name"
+                        android:fontFamily="@font/nunito_normal"
+                        android:textFontWeight="450"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary" />
+                    <TextView
+                        android:id="@+id/nameTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/nunito_normal"
+                        android:textFontWeight="700"
+                        android:text="NameOfUser" />
+                </LinearLayout>
 
-    </LinearLayout>
-    <TextView
-        android:id="@+id/confidenceTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Possibility : 78%"
-        android:textSize="14sp"
-        android:textColor="@color/text_white"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="2dp"
-        android:background="@drawable/blue_bubble"
-        android:layout_marginVertical="8dp"
-        android:layout_marginHorizontal="16dp"/>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/text_secondary" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Age"
+                        android:fontFamily="@font/nunito_normal"
+                        android:textFontWeight="450"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary" />
+                    <TextView
+                        android:id="@+id/ageTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/nunito_normal"
+                        android:textFontWeight="700"
+                        android:text="00" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/text_secondary" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Duration"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/nunito_normal"
+                        android:textFontWeight="450"
+                        android:textColor="@color/text_secondary" />
+                    <TextView
+                        android:id="@+id/durationTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/nunito_normal"
+                        android:textFontWeight="700"
+                        android:text="00 Days" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- ===== Prediction Card ===== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="vertical"
+                android:background="@drawable/card_bg"
+                android:elevation="2dp"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Predicted Category"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/nunito_normal"
+                    android:textFontWeight="450"
+                    android:textColor="@color/text_secondary" />
+
+                <TextView
+                    android:id="@+id/diseaseTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="22sp"
+                    android:fontFamily="@font/nunito_normal"
+                    android:textFontWeight="850"
+                    android:text="Fever" />
+
+                <TextView
+                    android:id="@+id/confidenceTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Possibility : 78%"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/nunito_normal"
+                    android:textFontWeight="450"
+                    android:textColor="@color/text_white"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="4dp"
+                    android:background="@drawable/blue_bubble" />
+            </LinearLayout>
+
+            <!-- ===== Symptoms Card ===== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="vertical"
+                android:background="@drawable/card_bg"
+                android:elevation="2dp"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/nunito_normal"
+                    android:textFontWeight="750"
+                    android:text="Symptoms" />
+
+                <LinearLayout
+                    android:id="@+id/symptomsLv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/nunito_normal"
+                    android:textFontWeight="450"
+                    android:orientation="vertical" />
+            </LinearLayout>
+
+            <!-- ===== Possible Cause Card ===== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="vertical"
+                android:background="@drawable/card_bg"
+                android:elevation="2dp"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/nunito_normal"
+                    android:textFontWeight="750"
+                    android:text="Possible Cause" />
+
+                <LinearLayout
+                    android:id="@+id/causeLv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/nunito_normal"
+                    android:textFontWeight="450"
+                    android:orientation="vertical" />
+            </LinearLayout>
+
+            <!-- ===== Suggested Actions Card ===== -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="vertical"
+                android:background="@drawable/card_bg"
+                android:elevation="2dp"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/nunito_normal"
+                    android:textFontWeight="750"
+                    android:text="Suggested Actions" />
+
+                <LinearLayout
+                    android:id="@+id/actionsLv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+
+                    android:orientation="vertical" />
+            </LinearLayout>
+
+            <!-- ===== Disclaimer ===== -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
+                android:textAlignment="center"
+                android:padding="10dp"
+                android:fontFamily="@font/nunito_normal"
+                android:textFontWeight="450"
+                android:background="@drawable/yellow_outiner"
                 android:layout_marginTop="16dp"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="Symptoms :"/>
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="16dp"
-                android:id="@+id/symptomsLv"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:text="Possible Cause :"/>
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="16dp"
-        android:id="@+id/causeLv"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:text="Suggested Actions :"/>
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:id="@+id/actionsLv"/>
+                android:layout_marginBottom="8dp"
+                android:textStyle="italic"
+                android:textSize="13sp"
+                android:text="⚠️ Disclaimer : This result is generated by AI using the user inputs and is only for awareness purposes. Please consult a doctor for medical diagnosis." />
+
         </LinearLayout>
     </ScrollView>
+
+    <!-- ===== Bottom Action Bar ===== -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/text_secondary"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginHorizontal="16dp"/>
+        android:background="@color/text_secondary" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginHorizontal="16dp">
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="10dp"
+        android:background="#FFFFFFFF">
 
         <Button
             android:id="@+id/checkAgainBtn"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="13sp"
             android:textColor="@color/text_white"
             android:text="CHECK AGAIN"
+            android:fontFamily="@font/nunito_normal"
+            android:textFontWeight="700"
             android:backgroundTint="@color/primary_blue"
-            android:layout_margin="4dp"/>
+            android:layout_margin="4dp" />
+
         <Button
             android:id="@+id/saveReportBtn"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="13sp"
             android:textColor="@color/text_white"
             android:text="SAVE REPORT"
+            android:fontFamily="@font/nunito_normal"
+            android:textFontWeight="700"
             android:backgroundTint="@color/health_green"
-            android:layout_margin="4dp"/>
+            android:layout_margin="4dp" />
 
     </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:padding="8dp"
-        android:background="@drawable/yellow_outiner"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:textStyle="italic"
-        android:textSize="14sp"
-        android:layout_marginBottom="8dp"
-        android:text="⚠️ Disclaimer : This result generated by AI using the user inputs and is only for awareness purpose. Please Consult a doctor for medical diagnosis"/>
 
 </LinearLayout>

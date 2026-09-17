@@ -2,7 +2,6 @@ package com.voxcom.haai
 
 import android.animation.ObjectAnimator
 import android.content.Intent
-import android.health.connect.datatypes.units.Temperature
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
@@ -32,8 +31,22 @@ class MainActivity : AppCompatActivity() {
     private lateinit var texts: Array<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            view.setPadding(
+                view.paddingLeft,
+                systemBars.top,
+                view.paddingRight,
+                systemBars.bottom
+            )
+
+            insets
+        }
 
         val SymptomsBtn = findViewById<CardView>(R.id.card1)
         val EmergencyBtn = findViewById<CardView>(R.id.card4)

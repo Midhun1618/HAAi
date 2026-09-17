@@ -9,7 +9,6 @@
     android:background="@drawable/boarding_bg_grad"
     tools:context=".LoginActivity">
 
-    <!-- Header: logo + app name + tagline -->
     <LinearLayout
         android:id="@+id/headerLL"
         android:layout_width="wrap_content"
@@ -52,7 +51,6 @@
 
     </LinearLayout>
 
-    <!-- Card: sign-in + detail form -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cardContainer"
         android:layout_width="0dp"
@@ -89,7 +87,6 @@
                 android:paddingHorizontal="16dp"
                 android:background="@drawable/curved_blue_outliner">
 
-                <!-- "G" badge instead of a drawable asset -->
                 <TextView
                     android:layout_width="22dp"
                     android:layout_height="22dp"
@@ -106,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Continue with Google"
-                    android:textColor="@color/primary_blue_dark"
+                    android:textColor="@color/primary_blue_light"
                     android:textStyle="bold"
                     android:textSize="15sp" />
 
@@ -122,7 +119,6 @@
 
         </FrameLayout>
 
-        <!-- Detail form (revealed after Google sign-in) -->
         <LinearLayout
             android:id="@+id/loginDetailLL"
             android:layout_width="0dp"
@@ -217,7 +213,6 @@
 
             </LinearLayout>
 
-            <!-- Login button (with its own loading state) -->
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

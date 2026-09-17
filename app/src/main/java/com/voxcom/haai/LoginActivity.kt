@@ -24,7 +24,10 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.launch
 import java.util.Calendar
 
@@ -242,16 +245,70 @@ class LoginActivity : AppCompatActivity() {
 
         auth.signInWithCredential(firebaseCredential)
             .addOnSuccessListener {
-                val user = auth.currentUser
-                emailTv.text = user?.email ?: "No Email"
-
-                setGoogleLoading(false)
-                revealLoginDetails()
+                checkExistingUserAndProceed()
             }
             .addOnFailureListener {
                 setGoogleLoading(false)
                 Toast.makeText(this, "Auth Failed", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    /**
+     * After Google sign-in succeeds, look the user up in Firebase by uid.
+     * - If a profile already exists: load it into UserManager and skip
+     *   straight into the app (no need to re-enter name/dob/gender).
+     * - If it doesn't exist: this is a first-time login, so show the
+     *   detail form to collect name/dob/gender.
+     */
+    private fun checkExistingUserAndProceed() {
+        val uid = auth.currentUser?.uid
+        if (uid == null) {
+            setGoogleLoading(false)
+            Toast.makeText(this, "Not signed in", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val ref = FirebaseDatabase.getInstance()
+            .getReference("users")
+            .child(uid)
+
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                setGoogleLoading(false)
+
+                if (snapshot.exists()) {
+                    // Returning user — pull saved details and go straight into the app.
+                    val name = snapshot.child("name").getValue(String::class.java) ?: ""
+                    val email = snapshot.child("email").getValue(String::class.java)
+                        ?: (auth.currentUser?.email ?: "")
+                    val dob = snapshot.child("dob").getValue(String::class.java) ?: ""
+                    val gender = snapshot.child("gender").getValue(String::class.java) ?: ""
+
+                    val user = User(name = name, email = email, dob = dob, gender = gender)
+                    UserManager.saveUser(this@LoginActivity, user)
+
+                    // TODO: replace MainActivity with whatever your post-login/home screen is.
+                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                    finish()
+                } else {
+                    // First-time user — show the form to collect their details.
+                    emailTv.text = auth.currentUser?.email ?: "No Email"
+                    revealLoginDetails()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                setGoogleLoading(false)
+                Toast.makeText(
+                    this@LoginActivity,
+                    "Couldn't check your profile: ${error.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+                // Fall back to showing the form rather than leaving the user stuck.
+                emailTv.text = auth.currentUser?.email ?: "No Email"
+                revealLoginDetails()
+            }
+        })
     }
 
     private fun saveUserToFirebase(name: String, dob: String, gender: String) {

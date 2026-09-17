@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/vertical_grad">
 
-    <!-- Center Content -->
     <LinearLayout
         android:id="@+id/centerLayout"
         android:layout_width="wrap_content"

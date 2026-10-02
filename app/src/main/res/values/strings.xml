@@ -180,4 +180,27 @@
         <item>Install carbon monoxide and smoke detectors in your home and test them every six months.</item>
         <item>Practice safe food handling: separate raw meat from other foods, cook to safe temperatures, and store correctly.</item>
     </string-array>
+    <string name="greeting_default">Hi, Username 👋</string>
+    <string name="email_default">example@gmail.com</string>
+    <string name="cd_logout">Log out</string>
+    <string name="cd_back">Back</string>
+    <string name="cd_new_tip">Show a new health tip</string>
+
+    <string name="check_symptoms_title">Check Symptoms</string>
+    <string name="check_symptoms_subtitle">AI-powered health check</string>
+
+    <string name="pill_tracker_title">Pill Tracker</string>
+    <string name="pill_tracker_subtitle_empty">Add your medicines and get reminders so you never miss a dose.</string>
+    <string name="pill_add_medicine">Add medicine</string>
+    <string name="pill_empty_title">No medicines yet</string>
+    <string name="pill_empty_body">Add your medicines and set the times. We\'ll remind you when it\'s time to take them.</string>
+
+    <string name="reports_title">Reports</string>
+    <string name="emergency_title">Emergency</string>
+
+    <string name="health_tip_label">Health tip of the day</string>
+    <string name="health_tip_default">Eat healthy, stay fit 💪</string>
+
+    <string name="gov_info_title">Government Health Information</string>
+    <string name="gov_info_subtitle">Visit official Ministry of Health page</string>
 </resources>

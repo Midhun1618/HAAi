@@ -24,10 +24,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var greet : TextView
     private lateinit var mailTv : TextView
     private lateinit var ageTv : TextView
-    private lateinit var usernameTv : TextView
     private lateinit var textView: TextView
     private lateinit var button: ImageView
     private lateinit var logout: ImageView
+    private lateinit var genderIcon : ImageView
     private lateinit var texts: Array<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         greet = findViewById(R.id.greetingTv)
         mailTv = findViewById(R.id.emailTv)
         ageTv = findViewById(R.id.ageTvm)
-        usernameTv = findViewById(R.id.usernameTv)
+        genderIcon = findViewById(R.id.gender_icon)
 
         textView = findViewById(R.id.tipTv)
         button = findViewById(R.id.buttonGenerate)
@@ -89,9 +89,12 @@ class MainActivity : AppCompatActivity() {
             }else{
                 greet.text = "Hi, $name"
             }
-            usernameTv.text = name
             ageTv.text="$age years"
             mailTv.text =email
+            when (it.gender.trim().lowercase()) {
+                "female" -> genderIcon.setImageResource(R.drawable.icon_female)
+                "male" -> genderIcon.setImageResource(R.drawable.icon_male)
+            }
         } ?: run {
             Toast.makeText(this, "User data not found", Toast.LENGTH_SHORT).show()
         }

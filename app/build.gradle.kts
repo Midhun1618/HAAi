@@ -17,8 +17,8 @@ android {
         applicationId = "com.voxcom.haai"
         minSdk = 24
         targetSdk = 36
-        versionCode = 9
-        versionName = "1.4"
+        versionCode = 10
+        versionName = "1.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -87,6 +87,7 @@ dependencies {
     implementation(libs.googleid)
 
     implementation(libs.gson)
+    implementation(libs.activity)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

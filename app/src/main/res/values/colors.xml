@@ -41,4 +41,16 @@
     <color name="gradient_start">#2F80ED</color>
     <color name="gradient_end">#00C2FF</color>
 
+    //new
+    <color name="haai_background">#F4F7FB</color>
+    <color name="haai_surface">#FFFFFF</color>
+    <color name="haai_stroke">#DCE4EC</color>
+    <color name="haai_accent_soft">#E6F0FA</color>
+    <color name="haai_text_primary">#1B2733</color>
+    <color name="haai_text_secondary">#5B6B7A</color>
+    <color name="haai_on_primary_muted">#D6E6F5</color>
+    <color name="haai_emergency">#B3261E</color>
+    <color name="haai_emergency_soft">#FDECEA</color>
+    <color name="haai_emergency_stroke">#F3C4C0</color>
+
 </resources>

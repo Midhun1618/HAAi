@@ -1,50 +1,42 @@
 {
   "project_info": {
-    "project_number": "797006781831",
-    "firebase_url": "https://haai-2026-default-rtdb.firebaseio.com",
-    "project_id": "haai-2026",
-    "storage_bucket": "haai-2026.firebasestorage.app"
+    "project_number": "644166921724",
+    "firebase_url": "https://haai-voxcom-default-rtdb.firebaseio.com",
+    "project_id": "haai-voxcom",
+    "storage_bucket": "haai-voxcom.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:797006781831:android:88f0dad79868e4a26e4722",
+        "mobilesdk_app_id": "1:644166921724:android:0f25280cebe8255e649679",
         "android_client_info": {
           "package_name": "com.voxcom.haai"
         }
       },
       "oauth_client": [
         {
-          "client_id": "797006781831-6pkv8junsqhd52atmq2a2lc07ir7m0l7.apps.googleusercontent.com",
+          "client_id": "644166921724-3ce1b7ldcdoko7jbkrd59880scgkqkq6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.voxcom.haai",
-            "certificate_hash": "51acd7560aa298edae585259fcfcc8d9517b129f"
+            "certificate_hash": "6a76469ba3f54def41e9496430ffce37451661b5"
           }
         },
         {
-          "client_id": "797006781831-p1lr9r8uj106t1028tjkej92ogea8947.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.voxcom.haai",
-            "certificate_hash": "25ee9989bcbfbab84ece17274f3c8808b1128e4e"
-          }
-        },
-        {
-          "client_id": "797006781831-nsboj0dtd2ppk5bjrlbsci0oriaugred.apps.googleusercontent.com",
+          "client_id": "644166921724-vt8ua15grevoupn8g0rm1ddjr55mqfd6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBKzE6Y2ykaB5wbakycblKhEkwogvSiiI8"
+          "current_key": "AIzaSyCEP_Xy9zaGZaeMyBIl9vWGM8jv9WdJLWA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "797006781831-nsboj0dtd2ppk5bjrlbsci0oriaugred.apps.googleusercontent.com",
+              "client_id": "644166921724-vt8ua15grevoupn8g0rm1ddjr55mqfd6.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

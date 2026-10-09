@@ -45,12 +45,40 @@
     <color name="haai_background">#F4F7FB</color>
     <color name="haai_surface">#FFFFFF</color>
     <color name="haai_stroke">#DCE4EC</color>
-    <color name="haai_accent_soft">#E6F0FA</color>
+    <color name="haai_accent_soft">#7C8CC6FF</color>
     <color name="haai_text_primary">#1B2733</color>
     <color name="haai_text_secondary">#5B6B7A</color>
     <color name="haai_on_primary_muted">#D6E6F5</color>
     <color name="haai_emergency">#B3261E</color>
     <color name="haai_emergency_soft">#FDECEA</color>
     <color name="haai_emergency_stroke">#F3C4C0</color>
+
+    <color name="pill_card_bg">#FFFFFF</color>
+    <color name="pill_card_stroke">#DCE6F5</color>
+    <color name="pill_icon_bg">#E6F0FF</color>
+    <color name="pill_icon_tint">#1F5FBF</color>
+
+    <!-- Hero panel -->
+    <color name="pill_panel_start">@color/primary_blue_dark</color>
+    <color name="pill_panel_end">#2F6FDB</color>
+    <color name="pill_on_panel">#FFFFFF</color>
+    <color name="pill_on_panel_muted">#C9DBFA</color>
+
+    <!-- Countdown chip -->
+    <color name="pill_chip_bg">#FFC857</color>
+    <color name="pill_chip_text">#3B2A00</color>
+
+    <!-- Progress -->
+    <color name="pill_progress">#2B67B6</color>
+    <color name="pill_progress_track">#E3EDF9</color>
+
+    <!-- Empty state -->
+    <color name="pill_empty_bg">#F5F9FF</color>
+
+    <!-- Strings (pill_tracker_title, pill_tracker_subtitle_empty, pill_add_medicine already exist) -->
+    <string name="pill_view_all">View all</string>
+    <string name="pill_next_dose_label">NEXT DOSE</string>
+    <string name="pill_mark_taken">Mark as taken</string>
+    <string name="pill_today_label">Today</string>
 
 </resources>

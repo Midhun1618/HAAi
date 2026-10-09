@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Keep strings from the earlier strings_additions.xml; these are new or replace pill_* entries. -->
+<resources>
+    <string name="cd_delete_medicine">Delete medicine</string>
+    <string name="cd_remove_time">Remove time</string>
+
+    <string name="pill_channel_name">Pill reminders</string>
+    <string name="pill_channel_desc">Reminders to take your medicines</string>
+    <string name="pill_notif_title">Time to take %1$s</string>
+    <string name="pill_notif_banner">Notifications are off, so reminders can\'t reach you. Tap to turn them on.</string>
+    <string name="pill_notif_denied">Notifications are off. You won\'t get reminders until you allow them in Settings.</string>
+
+    <string name="pill_action_taken">Taken</string>
+    <string name="pill_action_skip">Skip</string>
+    <string name="pill_action_snooze">Snooze 10 min</string>
+
+    <string name="pill_status_taken">Taken</string>
+    <string name="pill_status_skipped">Skipped</string>
+    <string name="pill_status_due">Due now</string>
+    <string name="pill_status_missed">Missed</string>
+    <string name="pill_status_upcoming">Upcoming</string>
+
+    <string name="pill_tab_today">Today</string>
+    <string name="pill_tab_medicines">Medicines</string>
+    <string name="pill_tab_history">History</string>
+
+    <string name="pill_summary_none">Add a medicine to get started</string>
+    <string name="pill_summary_nothing_today">Nothing scheduled today</string>
+    <string name="pill_summary_today">%1$d of %2$d doses taken today</string>
+    <string name="pill_summary_history_none">No doses recorded yet</string>
+    <string name="pill_summary_history">Last 7 days: %1$d of %2$d taken (%3$d%%)</string>
+    <plurals name="pill_summary_meds">
+        <item quantity="one">%d medicine</item>
+        <item quantity="other">%d medicines</item>
+    </plurals>
+
+    <string name="pill_empty_today_title">Nothing scheduled today</string>
+    <string name="pill_empty_today_body">Your medicines aren\'t scheduled for today. Check the Medicines tab.</string>
+    <string name="pill_empty_history_title">No history yet</string>
+    <string name="pill_empty_history_body">Taken, skipped and missed doses from the last 7 days will appear here.</string>
+
+    <string name="pill_delete_title">Delete medicine?</string>
+    <string name="pill_delete_message">%1$s and its history will be removed, and its reminders stopped.</string>
+    <string name="pill_delete_yes">Delete</string>
+    <string name="pill_cancel">Cancel</string>
+
+    <string name="pill_edit_medicine">Edit medicine</string>
+    <string name="pill_hint_name">Medicine name</string>
+    <string name="pill_hint_dose">Dose (optional, e.g. 500 mg, 1 tablet)</string>
+    <string name="pill_label_times">Reminder times</string>
+    <string name="pill_add_time">Add time</string>
+    <string name="pill_pick_time">Select time</string>
+    <string name="pill_label_days">Repeat on</string>
+    <string name="pill_save">Save medicine</string>
+    <string name="pill_err_name">Enter the medicine name</string>
+    <string name="pill_err_times">Add at least one reminder time</string>
+    <string name="pill_err_days">Choose at least one day</string>
+    <string name="pill_disclaimer">Pill Tracker only sends reminders. Always follow your doctor\'s or pharmacist\'s instructions for dose and timing.</string>
+
+    <string name="day_mon">Mon</string>
+    <string name="day_tue">Tue</string>
+    <string name="day_wed">Wed</string>
+    <string name="day_thu">Thu</string>
+    <string name="day_fri">Fri</string>
+    <string name="day_sat">Sat</string>
+    <string name="day_sun">Sun</string>
+</resources>

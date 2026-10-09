@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Add these to the colors you merged earlier (haai_*). -->
+<resources>
+    <color name="haai_success">#1B7F4B</color>
+    <color name="haai_success_soft">#E3F4EA</color>
+    <color name="haai_warning">#8A5A00</color>
+    <color name="haai_warning_soft">#FFF1D6</color>
+</resources>

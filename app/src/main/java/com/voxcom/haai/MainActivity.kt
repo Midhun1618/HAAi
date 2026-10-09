@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -19,6 +20,8 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import kotlin.random.Random
+import androidx.core.view.isVisible
+import com.google.android.material.progressindicator.LinearProgressIndicator
 
 class MainActivity : AppCompatActivity() {
     private lateinit var greet : TextView
@@ -66,6 +69,8 @@ class MainActivity : AppCompatActivity() {
 
 
         showRandomText()
+
+        ReminderScheduler.scheduleAll(this)
 
         button.setOnClickListener {
             val rotate = ObjectAnimator.ofFloat(button, "rotation", 0f, 360f)
@@ -116,12 +121,25 @@ class MainActivity : AppCompatActivity() {
             logoutWithConfirmation()
         }
 
+        val openPillTracker = View.OnClickListener {
+            startActivity(Intent(this, PillTrackerActivity::class.java))
+        }
+        findViewById<View>(R.id.cardPillTracker).setOnClickListener(openPillTracker)
+        findViewById<View>(R.id.btnAddMedicineHome).setOnClickListener {
+            startActivity(Intent(this, AddMedicineActivity::class.java))
+        }
+
+    }
+    override fun onResume() {
+        super.onResume()
+        updatePillCard()
     }
     private fun logoutWithConfirmation() {
         AlertDialog.Builder(this)
             .setTitle("Logout")
             .setMessage("Are you sure you want to log out?")
             .setPositiveButton("Yes") { _, _ ->
+                ReminderScheduler.cancelAll(this)
                 FirebaseAuth.getInstance().signOut()
                 UserManager.clearUser(this)
                 val intent = Intent(this, LoginActivity::class.java)
@@ -193,5 +211,84 @@ class MainActivity : AppCompatActivity() {
                     .start()
             }
             .start()
+    }
+    private fun updatePillCard() {
+        val nextGroup = findViewById<View>(R.id.pillNextGroup)
+        val emptyGroup = findViewById<View>(R.id.pillEmptyGroup)
+
+        // State B: no medicines yet -> empty state with the Add button
+        if (PillStore.getMedicines(this).isEmpty()) {
+            nextGroup.isVisible = false
+            emptyGroup.isVisible = true
+            findViewById<TextView>(R.id.pillSubtitleTv).setText(R.string.pill_tracker_subtitle_empty)
+            return
+        }
+
+        // State A: hero panel + progress
+        emptyGroup.isVisible = false
+        nextGroup.isVisible = true
+
+        val timeTv = findViewById<TextView>(R.id.pillTimeTv)
+        val nameTv = findViewById<TextView>(R.id.pillTitleTv)
+        val doseTv = findViewById<TextView>(R.id.pillDoseTv)
+        val countdownTv = findViewById<TextView>(R.id.pillCountdownTv)
+        val markTakenBtn = findViewById<View>(R.id.btnMarkTaken)
+        val progressTv = findViewById<TextView>(R.id.pillProgressTv)
+        val progressBar = findViewById<LinearProgressIndicator>(R.id.pillProgress)
+
+        val now = System.currentTimeMillis()
+        val doses = DoseSchedule.dosesForDay(this, now, now)
+        val next = doses.firstOrNull { it.state == DoseState.DUE || it.state == DoseState.UPCOMING }
+        val taken = doses.count { it.state == DoseState.TAKEN }
+        val missed = doses.count { it.state == DoseState.MISSED }
+
+        if (next != null) {
+            timeTv.text = DoseSchedule.display(this, next.time)
+            nameTv.text = next.medicine.name
+
+            val dose = next.medicine.dose
+            doseTv.text = dose
+            doseTv.isVisible = dose.isNotBlank()
+
+            countdownTv.isVisible = true
+            countdownTv.text = countdownText(next.scheduledAt - now)
+
+            // Only offer "Mark as taken" when the dose can actually be logged right now
+            markTakenBtn.isVisible = DoseSchedule.canLog(next, now)
+            markTakenBtn.setOnClickListener {
+                PillStore.logDose(this, next.medicine.id, next.scheduledAt, DoseStatus.TAKEN)
+                NotificationHelper.cancel(this, next.medicine.id, next.scheduledAt)
+                updatePillCard()   // refresh: moves on to the following dose + updates progress
+            }
+        } else {
+            // Nothing left to take: reuse the same panel as a calm "all done" state
+            timeTv.text = if (doses.isEmpty()) "Free day" else "All done"
+            nameTv.text = if (doses.isEmpty()) "Nothing scheduled today" else "Today's doses are complete"
+            doseTv.isVisible = false
+            countdownTv.isVisible = false
+            markTakenBtn.isVisible = false
+        }
+
+        // Progress row
+        progressTv.text = buildString {
+            append(if (doses.isEmpty()) "No doses" else "$taken of ${doses.size} taken")
+            if (missed > 0) append(" · $missed missed")
+        }
+        progressBar.setProgressCompat(
+            if (doses.isEmpty()) 0 else taken * 100 / doses.size,
+            true
+        )
+    }
+    private fun countdownText(deltaMs: Long): String {
+        val mins = deltaMs / 60_000L
+        return when {
+            mins <= 0L -> "Due now"
+            mins < 60L -> "in ${mins}m"
+            else -> {
+                val h = mins / 60
+                val m = mins % 60
+                if (m == 0L) "in ${h}h" else "in ${h}h ${m}m"
+            }
+        }
     }
 }

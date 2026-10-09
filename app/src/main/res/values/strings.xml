@@ -190,7 +190,7 @@
     <string name="check_symptoms_subtitle">AI-powered health check</string>
 
     <string name="pill_tracker_title">Pill Tracker</string>
-    <string name="pill_tracker_subtitle_empty">Add your medicines and get reminders so you never miss a dose.</string>
+    <string name="pill_tracker_subtitle_empty">Set reminders so you never miss a dose.</string>
     <string name="pill_add_medicine">Add medicine</string>
     <string name="pill_empty_title">No medicines yet</string>
     <string name="pill_empty_body">Add your medicines and set the times. We\'ll remind you when it\'s time to take them.</string>
